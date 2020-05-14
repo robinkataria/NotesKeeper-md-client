@@ -18,6 +18,7 @@ import 'popper.js/dist/popper'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
 import './styles/main.css'
+import 'prismjs/themes/prism-solarizedlight.css'
 
 function App(props) {
 

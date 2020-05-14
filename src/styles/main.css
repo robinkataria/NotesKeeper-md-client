@@ -2,7 +2,10 @@
     width:100%;
     height:100vh
 }
-
+.fullscreen-2{
+    width:100%;
+    min-height:100vh
+}
 .fsm{
     font-size: 0.6rem;
 }
@@ -17,4 +20,12 @@
 
 .fxl{
     font-size:1.5rem
+}
+.sheild-panel{
+    position: fixed;
+    z-index:5;
+    top:0;
+    left:0;
+    height:100vh;
+    background-color:rgba(0,0,0,0.75);
 }
