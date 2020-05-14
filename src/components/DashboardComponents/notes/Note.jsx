@@ -16,6 +16,7 @@ function Note(props){
 
     const [progress,setprogress] = useState(false)
     const [error,seterror] =useState(false)
+    const date = new Date(props.createdAt)
 
     const deleteNote = ()=>{
         setprogress(false)
@@ -62,7 +63,9 @@ return (<Fade in={true}>
                                     }
                                 </div>
                                 <div className='form-group'>
-                                    <label className='text-muted fm'>{props.createdAt}</label>
+                                    <label className='text-muted fm'>
+                                        {date.getDate()+'/'+date.getMonth()+'/'+date.getFullYear()+' '+date.getHours()+':'+((date.getMinutes() <= 9)?'0'+date.getMinutes():date.getMinutes())}
+                                    </label>
                                 </div>
                                 <p className='fm'>
                                     {(props.commit_message.length > 100)?props.commit_message.substring(0,100)+'...':props.commit_message}
