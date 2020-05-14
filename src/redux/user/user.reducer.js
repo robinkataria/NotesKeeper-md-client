@@ -7,7 +7,6 @@ const INITIAL_STATE = {
         middlename: null,
         lastname: null
     },
-    username: null,
     email: null,
 }
 
@@ -18,7 +17,6 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 logged_in: action.payload.logged_in,
                 name: action.payload.name,
-                username: action.payload.username,
                 email: action.payload.email
             });
         default:

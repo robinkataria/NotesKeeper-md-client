@@ -6,6 +6,7 @@ import axios from 'axios'
 import Alert from '@material-ui/lab/Alert'
 import history from '../history'
 import {Link} from 'react-router-dom'
+import PreLoader from '../components/UtilComponents/PreLoader'
 
 function VerifyEmail(props){
     const [state,setstate] = useState({flag:0,component:()=><></>})
@@ -78,11 +79,7 @@ function VerifyEmail(props){
     },[])
 
     if(state.flag === 0){
-       return (<div className='fullscreen d-flex justify-content-center align-items-center'>
-            <div className='col-12 col-md-6 col-lg-4 col-xl-3 d-flex flex-column justify-content-center align-items-center'>
-                <CircularProgress />
-            </div>
-        </div>)
+       return <PreLoader/>
     }else if(state.flag === 1){
         return (<div className='fullscreen d-flex justify-content-center align-items-center'>
             <div className='col-12 col-md-6 col-lg-4 col-xl-3 d-flex flex-column justify-content-center align-items-center'>

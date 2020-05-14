@@ -1,6 +1,7 @@
 import React from  'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faFile } from '@fortawesome/free-solid-svg-icons'
+import {Link} from 'react-router-dom'
 
 function Panel1(){
         return (
@@ -13,7 +14,7 @@ function Panel1(){
                         <hr />
                         <p style={{textAlign:'center'}}>Create NoteBooks and Store your Notes inside them.</p>
                     </div>
-                    <a className="btn btn-outline-secondary btn-lg" href="/login" role="button">Create Your NoteBook</a>
+                    <Link className="btn btn-outline-secondary btn-lg" to="/login" role="button">Create Your NoteBook</Link>
                 </div>
             </div>
         </div>
