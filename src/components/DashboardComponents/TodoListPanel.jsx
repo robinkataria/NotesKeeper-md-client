@@ -13,7 +13,7 @@ import IconButton from '@material-ui/core/IconButton'
 import AddIcon from '@material-ui/icons/Add'
 import {Link} from 'react-router-dom'
 import Searchbar from './Searchbar'
-import NewTodoItem from './todos/NewTodoItem'
+import TodoItemEditor from './todos/TodoItemEditor'
 import Task from  './todos/Task'
 
 
@@ -63,7 +63,7 @@ function TodoListPanel(props){
                             </div>
                         
                             <Divider/>
-                            {(open)?<NewTodoItem todo_id={props.todo_id} setopen={setopen}/>:<></>}
+                            {(open)?<TodoItemEditor todo_id={props.todo_id} mode='new' setopen={setopen}/>:<></>}
                             <Divider />
                                 <Searchbar type='notebooks' setsearch={setsearch}/>
                             <Divider/>
@@ -80,8 +80,13 @@ function TodoListPanel(props){
                                             <>
                                                 {
                                                     props.todoList.items.map(task=>{
-                                                        return <Task name={task.name} description={task.description}
-                                                        key={task._id} Time={task.Time} task_id={task._id} />
+                                                        return <Task title={task.title} 
+                                                                description={task.description}
+                                                                key={task._id} Time={task.Time} 
+                                                                task_id={task._id} 
+                                                                todo_id={props.todo_id}
+                                                                completed={task.completed}
+                                                                />
                                                     })
                                                 }
                                             </>

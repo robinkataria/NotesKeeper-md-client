@@ -5,17 +5,18 @@ import axios from 'axios'
 import Alert from '@material-ui/lab/Alert'
 import Fade from '@material-ui/core/Fade'
 import CircularProgress from '../../UtilComponents/CircularProgress'
+import DateTimePicker from 'react-datetime-picker';
 
 
-function NewTodoItem(props){
+function TodoItemEditor(props){
 
     const taskTitle = useRef('')
     const taskDescription = useRef('')
-    const taskDate = useRef('')
 
+    const [selecteddate,setSelectedDate] = useState((props.mode === 'edit')?new Date(props.Time):new Date())
     const [progress,setprogress] = useState(false)
     const [err,setErr] = useState({exist:0,msg:''})
-    const [rem,setrem] = useState({val:'',rem:200})
+    const [rem,setrem] = useState({val:(props.mode === 'edit')?props.description:'',rem:200})
     const [success,setsuccess] = useState(false)
 
     const checkCount = ()=>{
@@ -27,16 +28,24 @@ function NewTodoItem(props){
         }
     }
 
-   
+
+    const findUrl = ()=>{
+        if(props.mode === 'edit'){
+            return '/todosapi/edititem'
+        }else{
+            return '/todosapi/createitem' 
+        }
+    }
 
     const submitForm =(e)=>{
         e.preventDefault()
         setprogress(true)
-            axios.post('/todosapi/createitem',{
+            axios.post(findUrl(),{
                 todo_id:props.todo_id,
-                title:taskTitle.curret.value,
+                task_id:props.task_id || '',
+                title:taskTitle.current.value,
                 description:taskDescription.current.value || '',
-                Time:taskDate.current.value
+                Time:selecteddate
             },{withCredentials:true})
             .then(result=>{
                 setprogress(false)
@@ -65,15 +74,16 @@ return (<>
                    <div>
                         <label className='h5 my-2'>Enter Task Title</label>
                         <div className='form-group my-2'>
-                            <input className='form-control' id='title' ref={taskTitle} required />
+                            <input className='form-control' id='title' ref={taskTitle} defaultValue={(props.mode === 'edit')?props.title:''} required />
                         </div>
                         <div className='form-group my-2'>
                             <label className='fm my-auto'>Description <small>remaining characters {rem.rem}/200</small></label>
                             <input className='form-control' id='desc' onChange={checkCount} value={rem.val} ref={taskDescription} />
                         </div>
                         <div className='form-group my-2'>
-                            <label className='fm my-auto'>Set Time</label>
-                            <input className='form-control' id='date' type='datetime-local' ref={taskDate} min={new Date()} />
+                            <label>Dead Line</label>
+                            <DateTimePicker onChange={setSelectedDate} value={selecteddate}
+                            minDate={new Date()} clearIcon={null} className='col-12 px-0'/>
                         </div>
                         <div className='form-group my-2'>
                             {(err.exist === 1)?<Alert severity='error'>{err.msg}</Alert>:<></>}
@@ -85,7 +95,9 @@ return (<>
                     <div className='d-flex justify-content-end my-2'>
                         <button className='btn btn-outline-danger mr-2' disabled={progress} onClick={()=>props.setopen(false)}>Cancel</button>
                         {(progress)?<CircularProgress/>:
-                        <button className='btn btn-outline-success' disabled={progress || err.exist === 1} type='submit'>Create</button>
+                        <button className='btn btn-outline-success' disabled={progress || err.exist === 1} type='submit'>
+                            {(props.mode === 'edit')?'Edit':'Create'}
+                        </button>
                         }
                     </div>
                 </form>
@@ -101,4 +113,4 @@ setTodoList:todolist=>dispatch(setTodoList(todolist))
 
 
 
-export default connect(null,mapDispatchToProps)(NewTodoItem)
+export default connect(null,mapDispatchToProps)(TodoItemEditor)
