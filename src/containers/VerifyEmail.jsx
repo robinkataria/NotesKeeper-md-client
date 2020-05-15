@@ -1,7 +1,6 @@
 import React,{useEffect,useState} from 'react'
 import {connect} from 'react-redux'
 import {setCurrentUser} from '../redux/user/user.actions'
-import CircularProgress from '../components/UtilComponents/CircularProgress'
 import axios from 'axios'
 import Alert from '@material-ui/lab/Alert'
 import history from '../history'

@@ -18,7 +18,7 @@ import "react-mde/lib/styles/css/react-mde.css";
 import MdUpload from './editpanel/mdupload'
 import history from '../../history'
 import CircularProgress from '../UtilComponents/CircularProgress'
-import Prism from 'prismjs'
+
 
 const Converter =  new Showdown.Converter({
     tables: true,
@@ -191,7 +191,7 @@ function EditPanel(props){
                                     </button>
                                     {(props.mode === 'edit')?<></>:
                                     <button className={(Switch === 'upload')?'btn btn-dark fm rounded':'btn btn-light fm rounded'}
-                                        onClick={()=>setswitch('upload')}>
+                                        onClick={()=>setswitch('upload')} disabled={true}>
                                         Upload   
                                     </button>
                                     }

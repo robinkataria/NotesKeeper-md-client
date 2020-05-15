@@ -82,8 +82,14 @@ return (<>
                         </div>
                         <div className='form-group my-2'>
                             <label>Dead Line</label>
-                            <DateTimePicker onChange={setSelectedDate} value={selecteddate}
-                            minDate={new Date()} clearIcon={null} className='col-12 px-0'/>
+                            <DateTimePicker 
+                            onChange={setSelectedDate} 
+                            value={selecteddate}
+                            autoFocus={true} 
+                            required={true}
+                            minDate={new Date()} 
+                            clearIcon={null} 
+                            className='col-12 px-0'/>
                         </div>
                         <div className='form-group my-2'>
                             {(err.exist === 1)?<Alert severity='error'>{err.msg}</Alert>:<></>}

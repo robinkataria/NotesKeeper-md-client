@@ -4,7 +4,6 @@ import axios from 'axios'
 import LinearProgress from '../../UtilComponents/LinearProgress'
 import Alert from '@material-ui/lab/Alert'
 import {setNotebooksArray} from '../../../redux/notebooks/notebooks.actions'
-import validations from '../../../utils/validations/index'
 import {connect} from 'react-redux'
 
 function NewNotebook(props){
@@ -28,13 +27,6 @@ function NewNotebook(props){
         }
     }
 
-    const validate = ()=>{
-        if(!validations.validateName(notebookName.current.value)){
-            setErr({exist:1,msg:`Only Alphanumeric Characters are allowed`})
-        }else{
-            setErr({exist:0,msg:''})
-        }
-    }
 
     const submitForm =(e)=>{
         e.preventDefault()
@@ -78,11 +70,11 @@ return(
                         <label className='h5 my-2'>Enter a Name for Your Notebook</label>
                         <label className='my-1 fm'>Name needs to be different from other Notebooks</label>
                         <div className='form-group my-2'>
-                            <input className='form-control' id='nbname' onChange={validate} ref={notebookName} required />
+                            <input className='form-control' id='nbname' ref={notebookName} required />
                         </div>
                         <div className='form-group my-2'>
                             <label className='fm my-auto'>Description <small>remaining characters {rem.rem}/200</small></label>
-                            <input className='form-control' id='nbname' onChange={checkCount} value={rem.val} ref={notebookDescription} />
+                            <input className='form-control' id='nbdesc' onChange={checkCount} value={rem.val} ref={notebookDescription} />
                         </div>
                         <div className='form-group my-2'>
                             {(err.exist === 1)?<Alert severity='error'>{err.msg}</Alert>:<></>}

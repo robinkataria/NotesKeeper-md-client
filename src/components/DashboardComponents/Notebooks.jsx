@@ -13,6 +13,7 @@ import {setNotebooksArray} from '../../redux/notebooks/notebooks.actions'
 import Notebook from './notebooks/Notebook'
 import LinearProgress from '../UtilComponents/LinearProgress'
 import Fade from '@material-ui/core/Fade'
+import utils from '../../utils/index'
 
 function Notebooks(props){
 
@@ -74,10 +75,15 @@ function Notebooks(props){
                                     </>:
                                     <>
                                         {
-                                            props.notebooksArray.map(notebook=>{
-                                                return <Notebook name={notebook.name} description={notebook.description}
-                                                key={notebook._id} createdAt={notebook.createdAt} notebook_id={notebook._id} />
-                                            })
+                                             utils.createColumns(props.notebooksArray).map((column,index)=>{
+                                                       return (<div className='col-12 col-lg-3 col-md-3 col-xl-3 p-2' style={{minHeight:'auto'}} key={index}>
+                                                                { column.map(notebook=>{
+                                                                        return <Notebook name={notebook.name} description={notebook.description}
+                                                                        key={notebook._id} createdAt={notebook.createdAt} notebook_id={notebook._id} />
+                                                                    })
+                                                                }
+                                                                </div>)
+                                                        })
                                         }
                                     </>
                                 }
