@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import Navbar from '../DashboardComponents/Navbar'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faBookmark,faPlus,faTrash,faCodeBranch} from '@fortawesome/free-solid-svg-icons'
+import {faBookmark,faPlus,faTrash,faCodeBranch,faChevronLeft} from '@fortawesome/free-solid-svg-icons'
 import Divider from '@material-ui/core/Divider'
 import {Link} from 'react-router-dom'
 import Searchbar from './Searchbar'
@@ -13,6 +13,8 @@ import Note from './notes/Note'
 import LinearProgress from '../UtilComponents/LinearProgress'
 import Fade from '@material-ui/core/Fade'
 import CircularProgress from '../UtilComponents/CircularProgress'
+import utils from '../../utils/index'
+
 
 function Notes(props){
 
@@ -73,9 +75,14 @@ function Notes(props){
                 <div className='col-12 col-md-10 col-lg-8 my-2'>
                     <div className='form-group my-3'>
                         <div className='d-flex justify-content-between align-items-center mb-2'>
-                            <Link to={'/readnotebook/'+props.notebook_id} className='text-decoration-none text-dark' onClick={()=>setreset(!reset)}>
-                               <FontAwesomeIcon icon={faBookmark}/> {props.notebook.name}
-                            </Link>
+                            <div className='d-inline'>
+                                    <Link to='/' className='text-decoration-none text-dark mr-2' >
+                                        <FontAwesomeIcon icon ={faChevronLeft} />
+                                    </Link>
+                                    <Link to={'/readnotebook/'+props.notebook_id} className='text-decoration-none text-dark' onClick={()=>setreset(!reset)}>
+                                    <FontAwesomeIcon icon={faBookmark}/> {props.notebook.name}
+                                    </Link>
+                            </div>
                             {(progress)?
                             <CircularProgress />:
                             <button className='btn btn-dark rounded fm ' onClick={deleteAllNotes} >
@@ -114,11 +121,16 @@ function Notes(props){
                                     </>:
                                     <>
                                         {
-                                            props.notebook.notes.map(note=>{
-                                                return <Note name={note.name} commit_message={note.commit_message}
-                                                key={note._id} createdAt={note.createdAt} 
-                                                note_id={note._id} notebook_id={props.notebook_id} />
-                                            })
+                                             utils.createColumns(props.notebook.notes).map((column,index)=>{
+                                                       return (<div className='col-12 col-lg-3 col-md-3 col-xl-3 p-2' style={{minHeight:'auto'}} key={index}>
+                                                                { column.map(note=>{
+                                                                    return <Note name={note.name} commit_message={note.commit_message}
+                                                                    key={note._id} createdAt={note.createdAt} 
+                                                                    note_id={note._id} notebook_id={props.notebook_id} />
+                                                                })
+                                                            }
+                                                            </div>)
+                                                    })
                                         }
                                     </>
                                 }

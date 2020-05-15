@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import {setNotebooksArray,setNotebook} from '../../redux/notebooks/notebooks.actions'
-import {setTodosArray} from '../../redux/todos/todos.action'
+import {setTodosArray,setTodoList} from '../../redux/todos/todos.action'
 import {connect} from 'react-redux'
 import axios  from 'axios'
 import Alert from '@material-ui/lab/Alert'
@@ -26,6 +26,8 @@ function Searchbar(props) {
       case 'notebooks': return '/notesapi/searchnotebooks' 
       case 'todos': return '/todosapi/searchtodos' 
       case 'notes' : return '/notesapi/searchnotes'
+      case 'todolist' : return  '/todosapi/searchitems'
+      default : return '/todosapi/readtodo'
     }
   }
 
@@ -34,6 +36,8 @@ function Searchbar(props) {
       case 'notebooks': props.setNotebooksArray(data.notebooks);break ;
       case 'todos': props.setTodosArray(data.todos);break;
       case 'notes': props.setNotebook(data.notebook);break;
+      case 'todolist': props.setTodoList(data.todolist);break;
+      default : return ''
     }
   }
 
@@ -49,7 +53,8 @@ function Searchbar(props) {
     setprogress(true)
     axios.post(findUrl(),{
           query:query.current.value || '',
-          notebook_id:props.notebook_id || ''
+          notebook_id:props.notebook_id || '',
+          todo_id:props.todo_id || ''
         },{withCredentials:true})
         .then(result=>{
           setTimeout(()=>{
@@ -90,7 +95,8 @@ function Searchbar(props) {
 const mapDispatchToProps = dispatch =>({
   setNotebooksArray:array=>dispatch(setNotebooksArray(array)),
   setTodosArray:array=>dispatch(setTodosArray(array)),
-  setNotebook:notebook=>dispatch(setNotebook(notebook))
+  setNotebook:notebook=>dispatch(setNotebook(notebook)),
+  setTodoList:todolist=>dispatch(setTodoList(todolist))
 })
 
 

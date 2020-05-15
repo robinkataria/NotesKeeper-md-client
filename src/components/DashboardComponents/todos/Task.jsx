@@ -12,9 +12,9 @@ import CircularProgress from '../../UtilComponents/CircularProgress'
 import Alert from '@material-ui/lab/Alert'
 
 
-const info = 'p-2 bg-white'
+const info = 'p-2 bg-info'
 const warning = 'p-2 bg-warning'
-const success = 'p-2 bg-info'
+const white = 'p-2 bg-white'
 
 function Task(props){
 
@@ -39,6 +39,7 @@ function Task(props){
                 
                 case 423: setErr({exist:1,msg:'insufficient data'});break;
                 case 401: setErr({exist:1,msg:'unauthorized access'});break;
+                default : return ''
             }
 
         }).catch(err=>{
@@ -62,6 +63,7 @@ function Task(props){
                 case 200: props.setTodoList(result.data.todolist);break;
                 case 423: setErr({exist:1,msg:'insufficient data'});break;
                 case 401: setErr({exist:1,msg:'unauthorized access'});break;
+                default : return ''
             }
 
         }).catch(err=>{
@@ -81,31 +83,39 @@ function Task(props){
                     todo_id={props.todo_id}
                      />
                 :<></>}
-            <div className='col-12 col-lg-4 col-md-6 col-xl-3 p-0'>
+            
                  <div className ='border border-dark rounded m-2 '>
                     <div className={(props.completed)?
                         'bg-info d-flex px-2 text-white justify-content-between align-items-center':
-                        'bg-dark d-flex px-2 text-white justify-content-between align-items-center'}>
+                        (date.getTime() > (new Date()).getTime())?
+                        'bg-dark d-flex px-2 text-white justify-content-between align-items-center':
+                        'bg-warning d-flex px-2 text-white justify-content-between align-items-center'}>
                         <FontAwesomeIcon icon={faThumbtack} />
                         <div className='text-white'>
                             <IconButton className='mr-1 text-white' onClick={()=>setopen(true)}>
                                 <EditIcon/>
                             </IconButton>
-                            <Checkbox className='text-white'/> 
+                            <Checkbox className='text-white' key={props.keyvalue}  onChange={(e)=>{
+                                if(e.target.checked){
+                                    props.addTaskIdToDelArray(props.task_id,props.completed)
+                                }else{
+                                    props.remTaskIdFromDelArray(props.task_id,props.completed)
+                                }
+                            }} /> 
                         </div>
                     </div>
                     {(err.exist === 1)?<Alert severity='error' variant='filled'>{err.msg}</Alert>:<></>}
-                    <div className={(date.getTime() > (new Date()).getTime())?((props.completed)?success:info):warning}>
+                    <div className={((props.completed)?info:(date.getTime() > (new Date()).getTime())?white:warning)}>
                         <div className='text-dark text-break'>
                             <span className='h5' >Title : </span>{props.title}
                         </div>
-                        <div className='text-dark text-break'>
+                        {(props.description === '')?<></>:<div className='text-dark text-break'>
                             <span className='h6' >Description : </span> 
                             <span className='fm'>
                                 {props.description}
                             </span>
-                        </div>
-                        {(props.completed)?<></>:<div className='p-1 my-1 rounded  text-break bg-light' style={{border:'1px dashed black'}}>
+                        </div>}
+                        {(props.completed)?<></>:<div className='p-1 my-1 rounded  text-break' style={{border:'1px dashed black'}}>
                             <p className='h6' >Dead Line</p> 
                             <p className='fm'>
                                 {date.getDate()+'/'+date.getMonth()+'/'+date.getFullYear()+' '+date.getHours()+':'+((date.getMinutes() <= 9)?'0'+date.getMinutes():date.getMinutes())}
@@ -125,7 +135,7 @@ function Task(props){
                     </div>
                     
                 </div>
-            </div>
+            
             </>)
 }
 

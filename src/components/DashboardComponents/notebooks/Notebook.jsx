@@ -1,8 +1,6 @@
 import React,{useState} from 'react'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faList,faPlus,faListAlt} from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 import CircularProgress from '../../UtilComponents/CircularProgress'
 import Alert from '@material-ui/lab/Alert'
@@ -10,7 +8,6 @@ import {connect} from 'react-redux'
 import {setNotebooksArray} from '../../../redux/notebooks/notebooks.actions'
 import Fade from '@material-ui/core/Fade'
 import {Link} from 'react-router-dom'
-import history from '../../../history'
 
 function Notebook(props){
 
@@ -39,8 +36,7 @@ function Notebook(props){
         })  
     }
 
-return (<Fade in={true}>
-                        <div className='col-12 col-md-6 col-lg-3 p-2'>
+return (<Fade in={true}><>
                             <div className='border text-decoration-none text-dark border-dark p-2 rounded'>
                                 {(error)?<div className='form-group'>
                                     <Alert severity='error' variant='filled'>
@@ -69,7 +65,7 @@ return (<Fade in={true}>
                                     {(props.description.length > 100)?props.description.substring(0,100)+'...':props.description}
                                 </p>
                             </div>
-                        </div>
+                        </>
                         </Fade>
 )
 }

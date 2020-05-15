@@ -3,8 +3,6 @@ import Brand from '../../UtilComponents/Brand'
 import TextField from '@material-ui/core/TextField'
 import Fade from '@material-ui/core/Fade'
 import {Link} from 'react-router-dom'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios'
 import Alert from '@material-ui/lab/Alert'
 import LinearProgress from '../../UtilComponents/LinearProgress'

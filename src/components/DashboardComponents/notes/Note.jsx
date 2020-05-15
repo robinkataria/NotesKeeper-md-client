@@ -1,8 +1,6 @@
 import React,{useState} from 'react'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faList,faPlus,faListAlt} from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 import CircularProgress from '../../UtilComponents/CircularProgress'
 import Alert from '@material-ui/lab/Alert'
@@ -40,8 +38,7 @@ function Note(props){
         })  
     }
 
-return (<Fade in={true}>
-                        <div className='col-12 col-md-6 col-lg-3 p-2'>
+return (<Fade in={true}><>
                             <div className='border border-dark p-2 rounded'>
                                 {(error)?<div className='form-group'>
                                     <Alert severity='error' variant='filled'>
@@ -53,7 +50,7 @@ return (<Fade in={true}>
                                 }
                                 <div className='d-flex justify-content-between align-items-center'>
                                     <Link to={'/readnote/'+(props.notebook_id || '')+'/'+(props.note_id || '')}
-                                     className='h5 text-dark'>
+                                     className='h6 text-dark text-break'>
                                         {(props.name.length > 12)?props.name.substring(0,12)+'...':props.name}
                                     </Link>
                                     {(progress)?<CircularProgress/>:
@@ -71,7 +68,7 @@ return (<Fade in={true}>
                                     {(props.commit_message.length > 100)?props.commit_message.substring(0,100)+'...':props.commit_message}
                                 </p>
                             </div>
-                        </div>
+                        </>
                         </Fade>
 )
 }

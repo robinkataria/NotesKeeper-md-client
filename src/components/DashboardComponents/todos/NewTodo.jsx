@@ -4,7 +4,6 @@ import axios from 'axios'
 import LinearProgress from '../../UtilComponents/LinearProgress'
 import Alert from '@material-ui/lab/Alert'
 import {setTodosArray} from '../../../redux/todos/todos.action'
-import validations from '../../../utils/validations/index'
 import {connect} from 'react-redux'
 
 function NewTodo(props){
@@ -17,13 +16,6 @@ function NewTodo(props){
 
     const [success,setsuccess] = useState(false)
 
-    const validate = ()=>{
-        if(!validations.validateName(todoName.current.value)){
-            setErr({exist:1,msg:`Only Alphanumeric Characters are allowed`})
-        }else{
-            setErr({exist:0,msg:''})
-        }
-    }
 
     const submitForm =(e)=>{
         e.preventDefault()
@@ -66,7 +58,7 @@ return(
                         <label className='h5 my-2'>Enter a Name for Your Todo List</label>
                         <p className='my-1 fm text-muted'>Name needs to be different from other Todo Lists</p>
                         <div className='form-group my-2'>
-                            <input className='form-control' id='tdname' onChange={validate} ref={todoName} required />
+                            <input className='form-control' id='tdname'  ref={todoName} required />
                         </div>
                         <div className='form-group my-2'>
                             {(err.exist === 1)?<Alert severity='error'>{err.msg}</Alert>:<></>}
