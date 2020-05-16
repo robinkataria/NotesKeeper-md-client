@@ -62,7 +62,9 @@ function PasswordForm(props){
   const submitForm = (e)=>{
       e.preventDefault()
       props.setdata({...props.data,password:cnfpassword.current.value})
-      props.next()
+      if(props.next){
+        props.next()
+      }
   }
   
 
@@ -118,16 +120,16 @@ return (<Fade in={true}>
             </div>
             {(err.cnfpassword.exist === 1)?<Alert severity='error' className='fm'>{err.cnfpassword.msg}</Alert>:<></>}
             <div className='d-flex justify-content-between my-2'>
-              <button className='btn btn-outline-dark' disabled={props.stepIndex === 0} onClick={props.back}>
+               {(props.back)?<button className='btn btn-outline-dark' disabled={props.stepIndex === 0} onClick={props.back}>
                 Back
-              </button>
+              </button>:<></>}
               <div className='d-flex'>
-                <button variant="contained" color="primary" className='btn btn-outline-danger mr-2' onClick={props.reset}>
+                {(props.reset)?<button variant="contained" color="primary" className='btn btn-outline-danger mr-2' onClick={props.reset}>
                   Reset
-                </button>
+                </button>:<></>}
                 <button variant="contained" color="primary" disabled={(err.password.exist === 1 || err.cnfpassword.exist === 1)?true:false} 
                 className='btn btn-dark' type='submit' >
-                  Sign up
+                  {(props.reset)?'Sign Up':'Change Password'}
                 </button>
               </div>
             </div>

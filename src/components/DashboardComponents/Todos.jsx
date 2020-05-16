@@ -47,6 +47,7 @@ function Todos(props){
             <>
                 <Navbar type='todos' />
                 <Divider/>
+                 {(open)?<NewTodo setopen={setopen} />:<></>}
                  <div className='d-flex justify-content-center'>
                 <div className='col-12 col-md-10 col-lg-8 my-2'>
                     <div className='d-flex justify-content-between align-items-center my-3'>
@@ -57,7 +58,7 @@ function Todos(props){
                             <FontAwesomeIcon icon={faPlus}/> New Todo
                         </button>
                     </div>
-                    {(open)?<NewTodo setopen={setopen} />:<></>}
+                   
                     <Divider />
                         <Searchbar type='todos' setsearch={setsearch} />
                     <Divider/>

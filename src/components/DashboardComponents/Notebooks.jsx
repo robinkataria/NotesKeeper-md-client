@@ -46,6 +46,7 @@ function Notebooks(props){
             <>
             <Navbar type='notebooks'/>
             <Divider/>
+            {(open)?<NewNotebook setopen={setopen}/>:<></>}
             <div className='d-flex justify-content-center'>
                 <div className='col-12 col-md-10 col-lg-8 my-2'>
                     <div className='d-flex justify-content-between align-items-center my-3'>
@@ -56,7 +57,7 @@ function Notebooks(props){
                             <FontAwesomeIcon icon={faPlus}/> New Notebook
                         </button>
                     </div>
-                    {(open)?<NewNotebook setopen={setopen}/>:<></>}
+                    
                     <Divider />
                         <Searchbar type='notebooks' setsearch={setsearch}/>
                     <Divider/>
