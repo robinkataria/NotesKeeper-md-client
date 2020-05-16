@@ -40,6 +40,7 @@ function EditPanel(props){
     const [data,setdata] = useState({name:{value:'',rem:50},message:{value:'',rem:100}})
     const [Switch,setswitch] = useState('create')
     const [progress,setprogress] = useState(false)
+    const [file,setFile] = useState(null)
 
     const findUrl = () =>{
        if(props.mode === 'edit'){
@@ -105,6 +106,41 @@ function EditPanel(props){
         }
     }
 
+    const uploadData = ()=>{
+        
+        if(file === null){
+            seterror({...err,page:{exist:1,msg:'no file selected'}})
+        }else{
+        setprogress(true)
+        let formdata = new FormData()
+        formdata.append('name',name.current.value)
+        formdata.append('type','file')
+        formdata.append('notebook_id',props.notebook_id)
+        formdata.append('message',(message.current.value || ''))
+        formdata.append('data',file)
+        axios.post('/notesapi/uploadnote',formdata,{withCredentials:true,headers:{'Content-Type':'multipart/form-data'}})
+        .then(result=>{
+            setprogress(false)
+            let status = result.data.status
+            if(status === 500){
+                seterror({...err,page:{exist:1,msg:'server error'}})
+            }else if(status === 423){
+                seterror({...err,page:{exist:1,msg:'Insufficient data'}})
+            }else if(status === 401){
+                seterror({...err,page:{exist:1,msg:'Unauthorizes access'}})
+            }else if(status === 422){
+                seterror({...err,name:{exist:1,msg:'Name already exist'}})
+            }else if(status === 200){
+                props.setNote(result.data.note)
+                history.push('/readnote/'+(props.notebook_id || '')+'/'+(result.data.note.id || ''))
+            }
+        }).catch(error=>{
+            setprogress(false)
+            seterror({...err,page:{exist:1,msg:'server error'}})
+        })
+        }
+    }
+
     const bodyData=()=>{
         if(props.mode === 'edit'){
             return {
@@ -128,6 +164,7 @@ function EditPanel(props){
 
     //submit the Note
     const submitdata =()=>{
+
         setprogress(true)
         axios.post(noteUrl(),bodyData(),{withCredentials:true})
         .then(result=>{
@@ -145,7 +182,7 @@ function EditPanel(props){
                 props.setNote(result.data.note)
                 history.push('/readnote/'+(props.notebook_id || '')+'/'+(result.data.note.id || ''))
             }
-        }).catch(err=>{
+        }).catch(error=>{
             setprogress(false)
             seterror({...err,page:{exist:1,msg:'server error'}})
         })
@@ -191,7 +228,7 @@ function EditPanel(props){
                                     </button>
                                     {(props.mode === 'edit')?<></>:
                                     <button className={(Switch === 'upload')?'btn btn-dark fm rounded':'btn btn-light fm rounded'}
-                                        onClick={()=>setswitch('upload')} disabled={true}>
+                                        onClick={()=>setswitch('upload')} >
                                         Upload   
                                     </button>
                                     }
@@ -213,7 +250,7 @@ function EditPanel(props){
                                 {
                                     (props.mode !== 'edit')?
                                         <div className='my-3' style={{minHeight:'15vh'}}>
-                                            <MdUpload/>
+                                            <MdUpload setFile={setFile}/>
                                         </div>
                                         :<></>
                                     }
@@ -226,7 +263,7 @@ function EditPanel(props){
                             </div>
                         
                             <Divider />
-                            {(err.page.exist === 1)?<><Alert severity='error' className='my-2' variant=''>{err.page.msg}</Alert><Divider/></>:<></>}
+                            {(err.page.exist === 1)?<Alert severity='error' className='my-2' variant='filled'>{err.page.msg}</Alert>:<></>}
                             <div className = 'form-group my-3 d-flex justify-content-end'>
                                 <button className='btn btn-outline-danger mr-1'  disabled={progress}  onClick={()=>history.push('/readnotebook/'+(props.notebook_id || ''))}>
                                     Cancel
@@ -235,7 +272,7 @@ function EditPanel(props){
                                     Reset
                                 </button>
                                 {(progress)?<div className='ml-1'><CircularProgress/></div>:
-                                <button className='btn btn-outline-success ml-1' onClick={submitdata} disabled={progress} >
+                                <button className='btn btn-outline-success ml-1' onClick={()=>(Switch === 'create')?submitdata():uploadData()} disabled={progress} >
                                     Save
                                 </button>}
                             </div>

@@ -112,6 +112,7 @@ function TodoListPanel(props){
                     <>
                     <Navbar type='none'/>
                     <Divider />
+                    {(open)?<TodoItemEditor todo_id={props.todo_id} mode='new' setopen={setopen}/>:<></>}
                      <div className='d-flex justify-content-center'>
                         <div className='col-12 col-md-10 col-lg-8 my-2'>
                             <div className='my-1 d-flex justify-content-between align-items-center'>
@@ -150,8 +151,7 @@ function TodoListPanel(props){
                                 </div>
                             </div>
                             {(err.exist === 1)?<Alert severity='error' className='col-12 p-0 my-2' variant='filled'>{err.msg}</Alert>:<></>}
-                            <Divider/>
-                            {(open)?<TodoItemEditor todo_id={props.todo_id} mode='new' setopen={setopen}/>:<></>}
+                           
                             <Divider />
                                 <Searchbar type='todolist' todo_id={props.todo_id} setsearch={setsearch}/>
                             <Divider/>

@@ -88,9 +88,14 @@ function LoginForm(props){
                         inputRef={password}
                         />
                     </div>
-                    <div className = 'form-group d-flex justify-content-between pb-5 mb-5'>
+                    <div className = 'form-group d-flex justify-content-between mb-3 '>
                         <button className='btn px-0 btn-link' onClick={()=>props.setswitch('forgot')}>Forgot Password ?</button>
                         <button className='btn btn-dark ' type='submit' disabled={progress}>Sign in</button>
+                    </div>
+                     <p className='text-center my-2'>------------<span className='text-muted fm'> or </span>--------------</p>
+                    <div className='d-flex justify-content-center m-3'>
+                       <a href='http://localhost:5000/crypt/oauth/login' className='btn btn-dark btn-block' >
+                           Login Using  <span><b>C</b></span>ry<span><b>P</b></span>t<span className='fm'>Oauth2.0</span></a>
                     </div>
                     <div className='mt-5 mb-2 d-flex justify-content-center'>
                         Don't have an Account?<Link to='/signup' className='text-decoration-none'>Signup here</Link>
