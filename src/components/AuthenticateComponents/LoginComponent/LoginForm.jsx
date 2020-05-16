@@ -94,7 +94,7 @@ function LoginForm(props){
                     </div>
                      <p className='text-center my-2'>------------<span className='text-muted fm'> or </span>--------------</p>
                     <div className='d-flex justify-content-center m-3'>
-                       <a href='http://localhost:5000/crypt/oauth/login' className='btn btn-dark btn-block' >
+                       <a href='https://noteskeeper-md.herokuapp.com/crypt/oauth/login' className='btn btn-dark btn-block' >
                            Login Using  <span><b>C</b></span>ry<span><b>P</b></span>t<span className='fm'>Oauth2.0</span></a>
                     </div>
                     <div className='mt-5 mb-2 d-flex justify-content-center'>
