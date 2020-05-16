@@ -9,13 +9,13 @@ function Panel1(){
             <div className="row m-0 d-flex justify-content-center align-items-center" style={{height:'80vh'}}>
                 <div className="col-12 col-md-6 col-lg-6 d-flex flex-column align-items-center justify-content-center ">
                     <h3><FontAwesomeIcon icon={faFile}/><b>N</b>otesKeeper<span className='fm'>.md</span></h3>
-                    <div className="lead text-break">
+                    <div className="lead text-break text-center">
                         <span>Write in Markdown , </span>
                         <span>Read in MarkUp</span> 
                     </div>
                     <div className="m-0" >
                         <hr />
-                        <p style={{textAlign:'center'}}>Create NoteBooks and Store your Notes inside them.</p>
+                        <p className='text-center'>Create NoteBooks and Store your Notes inside them.</p>
                     </div>
                     <Link className="btn btn-outline-secondary btn-lg" to="/login" role="button">Create Your NoteBook</Link>
                 </div>
