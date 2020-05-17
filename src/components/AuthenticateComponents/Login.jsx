@@ -1,17 +1,22 @@
-import React,{useState} from 'react';
+import React, { useState } from "react";
 
-import LoginForm from './LoginComponent/LoginForm'
-import ForgotPasswordForm from './LoginComponent/ForgotPasswordForm'
+import LoginForm from "./LoginComponent/LoginForm";
+import ForgotPasswordForm from "./LoginComponent/ForgotPasswordForm";
 
-function Login(){
-
-    const [Switch,setswitch] = useState('login')
+function Login() {
+    const [Switch, setswitch] = useState("login");
 
     return (
-            <div className='col-12 border-bottom pb-2 border-dark'>
-                {(Switch === 'login')?<LoginForm setswitch={setswitch}/>:<ForgotPasswordForm setswitch={setswitch}/>}
-            </div>
-        )
+        <div className="col-12 border-bottom pb-5 border-dark">
+            {Switch === "login" ? (
+                <LoginForm setswitch={setswitch} />
+            ) : (
+                <ForgotPasswordForm setswitch={setswitch} />
+            )}
+        </div>
+    );
 }
 
-export default Login
+export default Login;
+
+//Reviewed 17-5
