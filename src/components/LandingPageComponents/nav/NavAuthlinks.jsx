@@ -1,11 +1,15 @@
-import React from 'react';
-import {Link} from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 
-export default function NavAuthlinks(){
+export default function NavAuthlinks() {
     return (
         <div className="navbar-nav d-flex flex-row">
-                <Link className="btn btn-light mr-2 rounded px-4 fm" to='/login'>Log in</Link>
-                <Link className="btn btn-dark  rounded px-4 fm" to='/signup'>Sign Up</Link>
-       </div>
-    )
+            <Link className="btn btn-light mr-2 rounded px-4 fm" to="/login">
+                Log in
+            </Link>
+            <Link className="btn btn-dark  rounded px-4 fm" to="/signup">
+                Sign Up
+            </Link>
+        </div>
+    );
 }

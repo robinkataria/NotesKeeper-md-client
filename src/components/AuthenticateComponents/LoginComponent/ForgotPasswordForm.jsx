@@ -62,13 +62,13 @@ function ForgotPasswordForm(props) {
                             <p>
                                 This email contains a password reset link and it
                                 will expire within 10 minutes of generation. So
-                                <strong> check it</strong> as soon as possible
+                                <strong> check it</strong> as soon as possible.
                             </p>
                         </Alert>
                     </div>
                 ) : (
                     <>
-                        <label className="h4 mb-3">
+                        <label className="h5 mb-4">
                             Enter your registered email
                         </label>
 
@@ -100,7 +100,7 @@ function ForgotPasswordForm(props) {
                             />
                         </div>
 
-                        <div className="form-group d-flex justify-content-between mb-5 pb-5">
+                        <div className="form-group d-flex justify-content-between mt-3 mb-5">
                             <button
                                 className="btn btn-outline-dark"
                                 onClick={() => props.setswitch("login")}
@@ -113,14 +113,14 @@ function ForgotPasswordForm(props) {
                                 type="submit"
                                 disabled={progress}
                             >
-                                Send password Reset Link
+                                Reset password
                             </button>
                         </div>
                     </>
                 )}
 
-                <div className="mt-5 mb-2 d-flex justify-content-center">
-                    Don't have an account?
+                <div className="mb-1 d-flex justify-content-center">
+                    Don't have an account?&nbsp;
                     <Link to="/signup" className="text-decoration-none">
                         Sign up here
                     </Link>

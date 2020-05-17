@@ -57,17 +57,21 @@ function LoginForm(props) {
         <Fade in={true}>
             <form onSubmit={submitForm}>
                 <label className="h4 mt-4 mb-3">
-                    <Link to="/" className="text-decoration-none text-dark">
+                    <Link
+                        to="/"
+                        className="text-decoration-none text-dark mr-3"
+                    >
                         <FontAwesomeIcon icon={faChevronLeft} />
                     </Link>
-                    <span> Sign in to </span>
-                    <Brand color="dark" />
+                    <span>
+                        Sign in to&nbsp; <Brand color="dark" />
+                    </span>
                 </label>
                 <br />
                 <br />
 
                 {progress ? (
-                    <div className="mb-2">
+                    <div className="mb-4">
                         <LinearProgress />
                     </div>
                 ) : (
@@ -75,7 +79,7 @@ function LoginForm(props) {
                 )}
 
                 {err.exist === 1 ? (
-                    <Alert severity="error" variant="filled" className="mb-2">
+                    <Alert severity="error" variant="filled" className="mb-4">
                         <span className="fm">{err.msg}</span>
                     </Alert>
                 ) : (
@@ -138,7 +142,7 @@ function LoginForm(props) {
                 </div>
 
                 <div className="mt-5 d-flex justify-content-center">
-                    Don't have an account?<span> </span>
+                    Don't have an account?&nbsp;
                     <Link to="/signup" className="text-decoration-none">
                         Sign up here
                     </Link>

@@ -1,17 +1,27 @@
-import React from  'react';
-import Createarea1 from './Createarea1';
-import Createarea2 from './Createarea2';
-import Createarea3 from './Createarea3';
+import React from "react";
 
+import Tutorial from "./Tutorial.component";
 
-function Panel2(){
-        return (
+function Panel2() {
+    return (
         <div className=" p-1 p-md-4 p-lg-4">
-            <Createarea1 />
-            <Createarea2 />
-            <Createarea3 />
+            <Tutorial
+                heading="Easy to Create"
+                imgLink="./images/edit.jpg"
+                bgColor="bg-light"
+            />
+            <Tutorial
+                heading="Checkout Changes Simaltaneously"
+                imgLink="./images/preview.jpg"
+                bgColor="bg-secondary"
+            />
+            <Tutorial
+                heading="Easy To Display"
+                imgLink="./images/display.jpg"
+                bgColor="bg-light"
+            />
         </div>
-        );
+    );
 }
 
 export default Panel2;
