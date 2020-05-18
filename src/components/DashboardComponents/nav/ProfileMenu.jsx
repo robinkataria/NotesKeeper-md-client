@@ -62,15 +62,15 @@ function ProfileMenu(props) {
                 : magic(name.middlename) + " ";
         const fullname =
             magic(name.firstname) + " " + middlename + magic(name.lastname);
-        return fullname.length >= 12
-            ? fullname.substring(0, 12) + "..."
+        return fullname.length >= 20
+            ? fullname.substring(0, 20) + "..."
             : fullname;
     };
 
     return (
         <div>
             <button
-                className="btn btn-dark rounded-circle"
+                className="btn bg-light rounded-circle border border-dark"
                 aria-controls="simple-menu"
                 size="small"
                 aria-haspopup="true"
@@ -78,6 +78,7 @@ function ProfileMenu(props) {
             >
                 <FontAwesomeIcon icon={faUser} />
             </button>
+
             <Menu
                 id="simple-menu"
                 anchorEl={anchorEl}
@@ -85,27 +86,30 @@ function ProfileMenu(props) {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <MenuItem onClick={handleClose}>
+                <MenuItem onClick={handleClose} className="justify-content-center mb-2" >
                     <FontAwesomeIcon icon={faChevronUp} />
                 </MenuItem>
+
                 <MenuItem>
-                    <b>Welcome {beautifyname(props.user.name)}</b>
+                    <b>Welcome <span className="text-info">{beautifyname(props.user.name)}</span></b>
                 </MenuItem>
-                <MenuItem>
+
+                <MenuItem className="justify-content-end">
                     {progress ? (
                         <div className="d-flex justify-content-center fm">
                             <CircularProgress />
                         </div>
                     ) : (
-                        <button
-                            onClick={logout}
-                            className="btn btn-dark"
-                            disabled={progress}
-                        >
-                            Logout
-                        </button>
-                    )}
+                            <button
+                                onClick={logout}
+                                className="btn btn-dark"
+                                disabled={progress}
+                            >
+                                Logout
+                            </button>
+                        )}
                 </MenuItem>
+
             </Menu>
         </div>
     );

@@ -34,7 +34,7 @@ export default function App(props) {
           return (
             <div {...getRootProps({ className: ` ${(isDragAccept) ? 'accept' : ''} ${(isDragReject) ? 'reject' : ''} ${(isDragActive) ? 'activeColor' : ''} ${(isDragActive || isDragReject || isDragAccept) ? '' : 'dropzone'}` })}>
               <input {...getInputProps()} />
-              <p>Drag'n'drop or click to select  your text or markdown file</p>
+              <p>Drag files, or Click to browse your markdown files</p>
             </div>
           )
         }

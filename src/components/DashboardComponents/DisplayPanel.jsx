@@ -123,9 +123,10 @@ function DisplayPanel(props) {
                 <>
                     <Navbar type="none" />
                     <Divider />
+
                     <div className="d-flex justify-content-center">
                         <div className="col-12 col-md-10 col-lg-8 my-2">
-                            <div className="my-3">
+                            <div className="mt-3 mb-4">
                                 <Breadcrumbs aria-label="breadcrumb">
                                     <Link
                                         to={
@@ -133,18 +134,19 @@ function DisplayPanel(props) {
                                             (props.notebook_id || "")
                                         }
                                     >
-                                        <FontAwesomeIcon icon={faBookmark} />{" "}
+                                        <FontAwesomeIcon icon={faBookmark} />&nbsp;&nbsp;
                                         {props.note.notebook_name || ""}
                                     </Link>
                                     <label className="my-auto text-dark">
-                                        <FontAwesomeIcon icon={faCode} />{" "}
+                                        <FontAwesomeIcon icon={faCode} />&nbsp;
                                         {props.note.name || ""}
                                     </label>
                                 </Breadcrumbs>
                             </div>
+
                             <div className="d-flex  flex-row justify-content-between p-2 fm  border bg-light rounded-top align-items-center">
                                 <div>
-                                    <ul className="list-inline m-0">
+                                    <ul className="list-inline m-0 pl-5">
                                         <li className="list-inline-item">
                                             {Buffer.byteLength(
                                                 props.note.data,
@@ -154,14 +156,15 @@ function DisplayPanel(props) {
                                         </li>
                                     </ul>
                                 </div>
+
                                 <div>
                                     <IconButton
                                         onClick={() =>
                                             history.push(
                                                 "/editnote/" +
-                                                    (props.notebook_id || "") +
-                                                    "/" +
-                                                    (props.note_id || "")
+                                                (props.notebook_id || "") +
+                                                "/" +
+                                                (props.note_id || "")
                                             )
                                         }
                                         className="mr-1"
@@ -173,27 +176,28 @@ function DisplayPanel(props) {
                                             <CircularProgress />
                                         </div>
                                     ) : (
-                                        <IconButton
-                                            className=" mx-1"
-                                            disabled={progress}
-                                            onClick={deleteNote}
-                                        >
-                                            <DeleteIcon />
-                                        </IconButton>
-                                    )}
+                                            <IconButton
+                                                className=" mx-1"
+                                                disabled={progress}
+                                                onClick={deleteNote}
+                                            >
+                                                <DeleteIcon />
+                                            </IconButton>
+                                        )}
                                 </div>
                             </div>
+
                             {err.exist === 1 ? (
                                 <Alert severity="error" variant="filled">
                                     {err.msg}
                                 </Alert>
                             ) : (
-                                <></>
-                            )}
+                                    <></>
+                                )}
                             <Fade in={true}>
                                 <div
                                     className=" p-4 m-0 fm border rounded-bottom "
-                                    style={{ minHeight: "70vh" }}
+                                    style={{ minHeight: "65vh" }}
                                 >
                                     <ReactMarkdown source={props.note.data} />
                                 </div>
