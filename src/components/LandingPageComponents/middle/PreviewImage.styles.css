@@ -1,0 +1,12 @@
+.image-styles{
+    border-radius: 5px;
+    max-height: 450px ;
+    max-width: 100%;
+    box-shadow: 1.5px 2px 12px #1d3557;
+}
+
+.carousel-container{
+    margin-top: 20px;
+    border-radius: 18px;
+    max-height: 650px;
+}

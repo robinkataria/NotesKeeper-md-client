@@ -6,10 +6,10 @@ function LinkIcons() {
     return (
         <a
             href="https://github.com/robinkataria/NotesKeeper-md"
-            className="text-decoration-none text-muted ml-2"
+            className="text-decoration-none text-muted ml-2 footerLink"
             target="_blank"
         >
-            <FontAwesomeIcon icon={faGithub}></FontAwesomeIcon>
+            <FontAwesomeIcon icon={faGithub} />
             <span className="text-muted"> /robinkataria</span>
         </a>
     );

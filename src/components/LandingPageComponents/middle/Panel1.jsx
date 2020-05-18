@@ -24,7 +24,7 @@ function Panel1() {
                     <div className="m-0">
                         <hr />
                         <p className="text-center">
-                            Create and store your Notes inside Notebooks.
+                            Create and manage your Notes inside Notebooks.
                         </p>
                     </div>
                     <Link
