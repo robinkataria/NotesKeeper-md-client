@@ -12,7 +12,7 @@ import CircularProgress from '../../UtilComponents/CircularProgress'
 import Alert from '@material-ui/lab/Alert'
 
 
-const info = 'p-2 bg-info'
+const info = 'p-2 lightBlueBg'
 const warning = 'p-2 lightYellowBg'
 const white = 'p-2 bg-white'
 
@@ -125,7 +125,7 @@ function Task(props) {
 
                 {(progress.flag && progress.button === 'complete') ? <CircularProgress /> :
                     <>{(props.completed) ?
-                        <label className='rounded text-white p-2 my-2 h4 mr-1'>Task Completed !!</label> :
+                        <label className='rounded text-info p-2 my-2 h5 mr-1'>Task Completed !!</label> :
                         <button className='fm btn btn-success my-2 mr-1 rounded' disabled={progress.flag} onClick={markCompleted}>Mark as completed</button>
                     }
                     </>

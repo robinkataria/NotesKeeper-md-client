@@ -84,7 +84,7 @@ function NewNotebook(props) {
                                 {(err.exist === 1) ? <Alert severity='error'>{err.msg}</Alert> : <></>}
                             </div>
 
-                            <div className='form-group my-2'>
+                            <div className='form-group mt-2 md-5'>
                                 {(success && err.exist === 0) ? <Alert severity='success' variant='filled'>Notebook SuccessFully Created</Alert> : <></>}
                             </div>
 

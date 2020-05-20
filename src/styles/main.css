@@ -63,27 +63,19 @@
     color: #bdbdbd;
 }
 
-.firstColorBg{
-    background-color: #98c1d9
-}
-
-.secondColorBg{
-    background-color: #3d5a80
-}
-
-.firstColor{
-    color: #e0fbfc
-}
-
-.secondColor{
-    color: #1d3557
-}
-
 .footerLink:hover{
     border-radius: 7%;
     background-color: #f6f4f9
 }
 
-.lightYellowBg{
-    background-color: #ffffe0;
-}
+.firstColor{ color: #e0fbfc }
+
+.secondColor{ color: #1d3557 }
+
+.firstColorBg{ background-color: #98c1d9 }
+
+.secondColorBg{ background-color: #3d5a80 }
+
+.lightYellowBg{ background-color: #ffffe0; }
+
+.lightBlueBg{ background-color: #e6f3f7; }
