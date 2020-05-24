@@ -16,6 +16,7 @@ function LoginForm(props) {
     const [err, setErr] = useState({ exist: 0, msg: "" });
     const [progress, setprogress] = useState(false);
 
+    // Hook; useRef is like a box that can hold a mutable value in its .current property
     const email = useRef("");
     const password = useRef("");
 
@@ -44,7 +45,7 @@ function LoginForm(props) {
                 } else if (status === 422) {
                     setErr({ ...err, exist: 1, msg: "Unverified User" });
                 } else if (status === 500) {
-                    setErr({ ...err, exist: 1, msg: "server error" });
+                    setErr({ ...err, exist: 1, msg: "Server Error" });
                 }
             })
             .catch((err) => {
@@ -57,34 +58,32 @@ function LoginForm(props) {
         <Fade in={true}>
             <form onSubmit={submitForm}>
                 <label className="h4 mt-4 mb-3">
-                    <Link
-                        to="/"
-                        className="text-decoration-none text-dark mr-3"
-                    >
+                    <Link to="/" className="text-decoration-none text-dark mr-3" >
                         <FontAwesomeIcon icon={faChevronLeft} />
                     </Link>
+
                     <span>
                         Sign in to&nbsp; <Brand color="dark" />
                     </span>
                 </label>
-                <br />
-                <br />
 
-                {progress ? (
-                    <div className="mb-4">
-                        <LinearProgress />
-                    </div>
-                ) : (
-                    <></>
-                )}
+                <br /><br />
 
-                {err.exist === 1 ? (
-                    <Alert severity="error" variant="filled" className="mb-4">
-                        <span className="fm">{err.msg}</span>
-                    </Alert>
-                ) : (
-                    <></>
-                )}
+                {
+                    progress ? (
+                        <div className="mb-4">
+                            <LinearProgress />
+                        </div>
+                    ) : (<></>)
+                }
+
+                {
+                    err.exist === 1 ? (
+                        <Alert severity="error" variant="filled" className="mb-4">
+                            <span className="fm">{err.msg}</span>
+                        </Alert>
+                    ) : (<></>)
+                }
 
                 <div className="form-group">
                     <TextField
@@ -111,8 +110,7 @@ function LoginForm(props) {
                 </div>
 
                 <div className="form-group d-flex justify-content-between mb-3 ">
-                    <button
-                        className="btn px-0 btn-link"
+                    <button className="btn px-0 btn-link"
                         onClick={() => props.setswitch("forgot")}
                     >
                         Forgot Password?
@@ -158,4 +156,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(null, mapDispatchToProps)(LoginForm);
 
-// Reviewed 17-5
+// Reviewed 17-5, 22-5

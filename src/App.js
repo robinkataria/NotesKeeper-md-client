@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import PreLoader from './components/UtilComponents/PreLoader'
 import ServerError from './components/UtilComponents/ServerError'
@@ -9,70 +9,73 @@ import VerifyEmail from './containers/VerifyEmail'
 import ResetPassword from './containers/ResetPassword'
 import Dashboard from './containers/Dashboard'
 import Contact from './containers/Contact'
-import {Route,Switch,Redirect} from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import querystring from 'query-string'
-import {setCurrentUser} from './redux/user/user.actions'
-import {connect} from 'react-redux'
+
+import { setCurrentUser } from './redux/user/user.actions'
+import { connect } from 'react-redux'
+
 import 'jquery/src/jquery'
 import 'popper.js/dist/popper'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
 import './styles/main.css'
-import 'prismjs/themes/prism-solarizedlight.css'
+import 'prismjs/themes/prism-solarizedlight.css'    // syntax highlighting
+
+// Component life cycle: mounting, updation, unmounting
 
 function App(props) {
 
-   const [screen,resetScreen] = useState({loading:true,error:false})
+  const [screen, resetScreen] = useState({ loading: true, error: false });
 
-   useEffect(() => {
-     axios.get('/checklogin',{
-       withCredentials:true
-     })
-     .then(res=>{
-          if(res.data.logged_in){
-              props.setCurrentUser(res.data)
-              resetScreen({...screen,loading:false})
-          }else{
-            setTimeout(()=>{
-            resetScreen({...screen,loading:false})
-            },2000)
-          }
-     })
-     .catch(err=>{
-        resetScreen({loading:false,error:true})
-     })
-   },[])
+  // during updation, after mounting
+  useEffect(() => {
+    axios.get('/checklogin', { withCredentials: true })
+      .then(res => {
+        if (res.data.logged_in) {
+          props.setCurrentUser(res.data)
+          resetScreen({ ...screen, loading: false })
+        } else {
+          setTimeout(() => {
+            resetScreen({ ...screen, loading: false })
+          }, 2000)
+        }
+      })
+      .catch(err => {
+        resetScreen({ loading: false, error: true })
+      })
+  }, []);
 
   if (screen.loading) {
-    return <PreLoader/>
-  }else if (screen.error){
-    return <ServerError/>
+    return <PreLoader />
+  } else if (screen.error) {
+    return <ServerError />
   } else {
     if (props.logged_in) {
       return (<Switch>
-                <Route path='/' component={Dashboard} />
-                <Route >
-                  <Redirect to='/' />
-                </Route>
-              </Switch>)
+        <Route path='/' component={Dashboard} />
+        <Route >
+          <Redirect to='/' />
+        </Route>
+      </Switch>)
     } else {
       return (<Switch>
-                  <Route exact path='/' component={LandingPage} />
-                  <Route exact path='/login' component={()=><Authenticate page='login' />} />
-                  <Route exact path='/signup' component={()=><Authenticate page='signup' />}/>
-                  <Route exact path='/resetpassword' component={(prop)=>{
-                        const val = querystring.parse(prop.location.search)
-                        const token = val.token
-                        return <ResetPassword token = {token} />
-                      }}/>/>
-                  <Route path='/verifyemail' component={(prop)=>{
-                        const val = querystring.parse(prop.location.search)
-                        const token = val.token
-                        return <VerifyEmail token = {token} />
-                      }}/>
-                  <Route exact path='/contact' component={Contact} />
-                  <Route component={Page404}/>
-              </Switch>)
+        <Route exact path='/' component={LandingPage} />
+        <Route exact path='/login' component={() => <Authenticate page='login' />} />
+        <Route exact path='/signup' component={() => <Authenticate page='signup' />} />
+        <Route exact path='/resetpassword' component={(prop) => {
+          const val = querystring.parse(prop.location.search)
+          const token = val.token
+          return <ResetPassword token={token} />
+        }} />/>
+        <Route path='/verifyemail' component={(prop) => {
+          const val = querystring.parse(prop.location.search)
+          const token = val.token
+          return <VerifyEmail token={token} />
+        }} />
+        <Route exact path='/contact' component={Contact} />
+        <Route component={Page404} />
+      </Switch>)
     }
   }
 }

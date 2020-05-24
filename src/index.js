@@ -9,12 +9,10 @@ import history from './history'
 import ErrorBoundary from './ErrorBoundary'
 import axios from 'axios'
 
-
 // axios.defaults.baseURL = 'http://localhost:5000'
 
 axios.defaults.baseURL = 'https://noteskeeper-md.herokuapp.com'
-axios.defaults.withCredentials = true
-
+axios.defaults.withCredentials = true   // browser should send default cookies
 
 ReactDOM.render(
   <Provider store={store}>
@@ -29,6 +27,3 @@ ReactDOM.render(
   ,
   document.getElementById('root')
 );
-
-
-
