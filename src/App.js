@@ -33,9 +33,7 @@ function App(props) {
               props.setCurrentUser(res.data)
               resetScreen({...screen,loading:false})
           }else{
-            setTimeout(()=>{
             resetScreen({...screen,loading:false})
-            },2000)
           }
      })
      .catch(err=>{
@@ -64,7 +62,7 @@ function App(props) {
                         const val = querystring.parse(prop.location.search)
                         const token = val.token
                         return <ResetPassword token = {token} />
-                      }}/>/>
+                      }}/>
                   <Route path='/verifyemail' component={(prop)=>{
                         const val = querystring.parse(prop.location.search)
                         const token = val.token
