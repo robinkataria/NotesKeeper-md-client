@@ -1,100 +1,81 @@
 import React,{useState,useRef} from 'react';
-import Brand from '../UtilComponents/Brand'
-import TextField from '@material-ui/core/TextField'
 import Fade from '@material-ui/core/Fade'
 import {Link} from 'react-router-dom'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import Alert from '@material-ui/lab/Alert'
 import axios  from 'axios'
 import {setCurrentUser} from '../../redux/user/user.actions'
 import {connect} from 'react-redux'
-import LinearProgress from '../UtilComponents/LinearProgress'
+import CircularProgress from '../UtilComponents/CircularProgress'
 import history from '../../history'
 
 function LoginForm(props){
 
-    const [err,setErr] = useState({exist:0,msg:''})
-    const [progress,setprogress] = useState(false)
 
     const email = useRef('')
     const password = useRef('')
 
-    const submitForm = (e)=>{
-        e.preventDefault()
-        setprogress(true)
+    const [state,setstate] = useState({
+        progress:false,
+        error:{exist:false,errorMessage:''}
+    })
+    const submitForm = (e) => {
+        setstate({...state,progress:true})
         axios.post('/login',{
             email:email.current.value,
             password:password.current.value
         },{withCredentials:true})
-        .then(result=>{
-            setprogress(false)
-            let status =result.data.status
-            if(status === 200){
-                props.setCurrentUser(result.data)
-                history.push('/')
-            }else if(status === 401){
-                setErr({...err,exist:1,msg:'Invalid Credentials'})
-            }else if(status === 423){
-                setErr({...err,exist:1,msg:'Insufficient Data'})
-            }else if(status === 422){
-                setErr({...err,exist:1,msg:'Unverified User'})
-            }else if(status === 500){
-                setErr({...err,exist:1,msg:'server error'})
+        .then(res=>{
+            let status = res.data.status
+            switch(status){
+                case 200 : props.setCurrentUser(res.data);history.push('/');break;
+                case 401 : setstate({...state,progress:false,error:{exist:true,errorMessage:'Invalid credentials'}})
+                case 423 : setstate({...state,progress:false,error:{exist:true,errorMessage:'Validation error'}})
+                case 422 : setstate({...state,progress:false,error:{exist:true,errorMessage:'Unverified User'}})
+                case 500 : setstate({...state,progress:false,error:{exist:true,errorMessage:'Something went wrong at out end!!'}})
+                default : console.log('login default exec')
             }
         })
-        .catch(err=>{
-            setprogress(false)
-            setErr({...err,exist:1,msg:'Server Error'})
+        .catch(error =>{
+            setstate({...state,progress:false,error:{exist:true,errorMessage:'Something went wrong at out end!!'}})
         })
+        e.preventDefault()
     }
 
     return (<Fade in={true} >
-                <form onSubmit={submitForm}>
-                    <label className='h4 mt-5 mb-3'> 
-                        <span> Sign in to <Link to='/' className='text-decoration-none text-dark' >NotesKeeper.md</Link>
-                        </span>
-                    </label>
-                    <div className='d-flex justify-content-center m-3'>
-                       <a href='https://noteskeeper-md.herokuapp.com/crypt/oauth/login' className='btn btn-dark btn-block' >
-                           <span><b>C</b></span>ry<span><b>P</b></span>t</a>
-                    </div>
-                    <p className='text-center my-2'>------------<span className='text-muted fm'> Or </span>--------------</p>
-                    {(progress)?<div className='mb-2'><LinearProgress/></div>:<></>}
-                    {(err.exist === 1)?
-                    <Alert severity='error' variant='filled' className='mb-2'>
-                        <span className='fm'>
-                            {err.msg}
-                        </span>
-                    </Alert>:<></>}
-                    <div className='form-group'>
-                    <TextField
-                        fullWidth
-                        id="email"
-                        label="Email"
-                        type="email"
-                        variant="outlined"
-                        required
-                        inputRef={email}
-                        />
-                    </div>
-                    <div className='form-group'>
-                     <TextField
-                        fullWidth
-                        id="password"
-                        label="Password"
-                        type="password"
-                        variant="outlined"
-                        required
-                        inputRef={password}
-                        />
-                    </div>
-                    <div className = 'form-group d-flex justify-content-between mb-3 '>
-                        <Link to='/forgotpassword' className='btn px-0 btn-link' >Forgot Password ?</Link>
-                        <button className='btn btn-dark ' type='submit' disabled={progress}>Sign in</button>
-                    </div>
-                    <div className='mt-5 mb-2 d-flex justify-content-center'>
-                        Don't have an Account?<Link to='/signup' className='text-decoration-none'>Signup here</Link>
+                <form onSubmit={submitForm} className='col-12'>
+                    <div>
+                        <label className='h5 ff-mst fl my-2 '> 
+                            <span className='mr-1'>Sign in to </span>
+                            <Link to='/' className='text-decoration-none text-dark fxl' ><b>N</b>otesKeeper.md</Link>
+                        </label>
+                        <div className='d-flex justify-content-center my-3'>
+                            <a href='https://noteskeeper-md.herokuapp.com/crypt/oauth/login' className='btn shadow-sm btn-dark btn-block' >
+                                <span><b>C</b></span>ry<span><b>P</b></span>t
+                            </a>
+                        </div>
+                        <p className='text-center my-2'>------------<span className='text-muted fm'> Or </span>--------------</p>
+                        <div className='form-group'>
+                            <label className='bold ff-mst m-0'>Email Address</label>
+                            <input className='form-control' id='email' type="email" required ref={email} />
+                        </div>
+                        <div className='form-group'>
+                            <label  className='bold ff-mst m-0'>Password</label>
+                            <input className='form-control' id='password' type="password" required ref={password} />
+                        </div>
+                        <div className = 'form-group d-flex justify-content-between my-2 '>
+                            <Link to='/forgotpassword' className='px-0 text-decoration-none fm' >Forgot Password ?</Link>
+                            {
+                                (state.progress)?
+                                <CircularProgress size={30}/>:
+                                <button className='btn btn-primary shadow' type='submit' disabled={state.progress}>Sign in</button>
+                            }
+                        </div>
+                        <div>
+                            {(state.error.exist)?
+                                <Alert severity='error' className='shadow-sm' variant='outlined'>{state.error.errorMessage}</Alert>:
+                                <></>
+                            }
+                        </div>
                     </div>
                 </form>
             </Fade>)
