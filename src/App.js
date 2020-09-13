@@ -58,14 +58,13 @@ function App(props) {
                   <Route exact path='/' component={LandingPage} />
                   <Route exact path='/login' component={()=><Authenticate page='login' />} />
                   <Route exact path='/signup' component={()=><Authenticate page='signup' />}/>
+                  <Route exact path='/forgotpassword' component={()=><Authenticate page='forgotpassword' />} />
                   <Route exact path='/resetpassword' component={(prop)=>{
-                        const val = querystring.parse(prop.location.search)
-                        const token = val.token
+                        const {token} = querystring.parse(prop.location.search)
                         return <ResetPassword token = {token} />
                       }}/>
                   <Route path='/verifyemail' component={(prop)=>{
-                        const val = querystring.parse(prop.location.search)
-                        const token = val.token
+                        const {token} = querystring.parse(prop.location.search)
                         return <VerifyEmail token = {token} />
                       }}/>
                   <Route exact path='/contact' component={Contact} />

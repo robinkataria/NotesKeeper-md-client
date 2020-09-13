@@ -4,12 +4,12 @@ import {faLinkedin,faGithub} from '@fortawesome/free-brands-svg-icons'
 import { faGlobe, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import  {Link} from 'react-router-dom'
 
-const Developer = (props) => {
+const Developer = ({name, links}) => {
     return (<div>
-                <span className='text-white-50'>{props.name}</span>
+                <span className='text-white-50'>{name}</span>
                 <ul className='list-inline'>
                     {
-                        props.links.map((link,index) => {
+                        links.map((link,index) => {
                             return (<li key={index} className='list-inline-item my-1 '>
                                         <a className='text-decoration-none text-muted' href={link.href}><FontAwesomeIcon icon={link.icon} /></a>
                                     </li>)
@@ -44,7 +44,7 @@ export default function LandingPageFoot(){
             <div className='d-flex justify-content-center col-12 col-md-10 col-lg-9 border-bottom border-gray my-4 '>
                 <div className='col-12 d-flex flex-column align-items-center py-4 mb-4'>
                     <h3 className='ff-mst text-white my-2 text-center'>Start taking notes with Noteskeeper.md</h3>
-                    <div className='text-center text-white-50 my-2 col-12 col-lg-10 col-md-11 fm'>
+                    <div className='text-center text-white-50 my-2 col-12 col-lg-10 col-xl-6 col-md-11 fm'>
                         Taking notes with Noteskeeper is super easy. 
                         You can create multiple notebooks to seprate your notes.
                         Todolists in Noteskeeper allow you to create, manage and track your daily tasks.

@@ -1,11 +1,11 @@
 import React,{useRef,useState} from 'react';
-import Brand from '../../UtilComponents/Brand'
+import Brand from '../UtilComponents/Brand'
 import TextField from '@material-ui/core/TextField'
 import Fade from '@material-ui/core/Fade'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
 import Alert from '@material-ui/lab/Alert'
-import LinearProgress from '../../UtilComponents/LinearProgress'
+import LinearProgress from '../UtilComponents/LinearProgress'
 
 function ForgotPasswordForm(props){
 
@@ -70,7 +70,7 @@ return (    <Fade in={true} >
                             />
                     </div>
                     <div className = 'form-group d-flex justify-content-between mb-5 pb-5'>
-                        <button className='btn btn-outline-dark' onClick={()=>props.setswitch('login')}>Cancel</button>
+                        <Link to='/login' className='btn btn-outline-dark' >Cancel</Link>
                         <button className='btn btn-dark ' type='submit' disabled={progress}>Send password Reset Link</button>
                     </div>
                       </>}
