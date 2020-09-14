@@ -50,7 +50,7 @@ function LoginForm(props){
                         </label>
                         <div className='d-flex justify-content-center my-3'>
                             <a href='https://noteskeeper-md.herokuapp.com/crypt/oauth/login' className='btn shadow-sm btn-dark btn-block' >
-                                <span><b>C</b></span>ry<span><b>P</b></span>t
+                                <span className='fm mr-1'>Sign in with</span><span><b>C</b></span>ry<span><b>P</b></span>t
                             </a>
                         </div>
                         <p className='text-center my-2'>------------<span className='text-muted fm'> Or </span>--------------</p>

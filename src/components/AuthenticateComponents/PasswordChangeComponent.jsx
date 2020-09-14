@@ -1,5 +1,4 @@
 import React,{useState} from 'react'
-import PasswordForm from './SignupComponent/PasswordForm'
 import CopyRight from '../UtilComponents/Copyright'
 import LinkIcons from '../UtilComponents/LinkIcons'
 import Fade from '@material-ui/core/Fade'
@@ -10,6 +9,8 @@ import LinearProgress from '../UtilComponents/LinearProgress'
 import {connect} from 'react-redux'
 import {setCurrentUser} from '../../redux/user/user.actions'
 import Alert from '@material-ui/lab/Alert'
+
+const PasswordForm = () => <div/>
 
 function PasswordChangeComponent(props){
     const [err,seterr] =useState({exist:0,msg:''})

@@ -10,6 +10,7 @@ export default function LandingPage(){
     <Fade in={true}>
         <div>
                 <LandingPageNav/>
+                <div style={{minHeight:'10vh'}} />
                 <LandingPageMiddle/>
                 <Team/>
                 <LandingPageFoot/>

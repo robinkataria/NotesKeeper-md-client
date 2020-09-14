@@ -32,8 +32,6 @@ const navLinkData = {
 }
 
 const NavLink = ({page}) => {
-
-
     const {links,messages} = navLinkData[page]
     return (<>
                 <Link to={links[0]} className='mr-2'>
@@ -48,12 +46,19 @@ const NavLink = ({page}) => {
             </>)
 }
 
+const taglines = { 'login' :'Redifining notes taking.',
+                    'signup':'Register your notes with us.',
+                    'forgotpassword':"We don't forget your notes."
+                }
 
 export default function Authenticate({page}){
     return (
         <div className='d-flex'>
-            <div className='bg-black p-0 col-xl-4 col-lg-5 col-md-6' style={{minHeight:'100vh'}}>
-
+            <div className='bg-black p-0 col-xl-4 col-lg-5 col-md-6 d-flex justify-content-center align-items-center' style={{minHeight:'100vh'}}>
+                <div className='col-12 col-lg-10 col-md-11' style={{minHeight:'80vh'}}>
+                    <Link to='/' className='text-decoration-none text-white ff-mst my-4'><h3><b>N</b>oteskeeper.md</h3></Link>
+                    <p className='h5 ff-mst text-white-50 my-4'>{taglines[page]}</p>
+                </div>
             </div>
             <div className='d-flex flex-column align-items-center col-12 col-xl-8 col-lg-7 col-md-6' style={{minHeight:'100vh'}}>
                 <div className='col-12 d-flex justify-content-between align-items-center' style={{minHeight:'10vh'}}>

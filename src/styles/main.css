@@ -80,3 +80,5 @@ text-align: center;
 }
 
 .bg-black{background-color:black}
+.password{border:none !important;outline:none !important}
+button{outline:none !important}

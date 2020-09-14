@@ -1,4 +1,4 @@
-import generatePasswordPower from './generatePasswordPower'
+import passwordStrength from './passwordStrength'
 import createColumns from './createColumns'
 
-export default {generatePasswordPower,createColumns}
+export default {passwordStrength,createColumns}

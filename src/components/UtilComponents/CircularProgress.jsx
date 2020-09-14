@@ -32,7 +32,7 @@ function CircularProgressWithLabel(props) {
         alignItems="center"
         justifyContent="center"
       >
-        <label variant="caption" className='fsm' >{`${Math.round(
+        <label variant="caption" className='fsm m-0' >{`${Math.round(
           props.value,
         )}%`}</label>
       </Box>
