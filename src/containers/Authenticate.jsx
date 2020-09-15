@@ -2,16 +2,18 @@ import React from 'react'
 import Login from '../components/AuthenticateComponents/Login'
 import Signup from '../components/AuthenticateComponents/Signup'
 import ForgotPassword from '../components/AuthenticateComponents/ForgotPassword'
+import PasswordChangeComponent from '../components/AuthenticateComponents/PasswordChangeComponent'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import IconButton from '@material-ui/core/IconButton'
 import {Link} from 'react-router-dom'
 
 
-const Component = ({page}) => {
+const Component = ({page,email = 'sharvan'}) => {
     switch(page){
         case 'login' : return <Login/>
         case 'signup' : return <Signup/>
         case 'forgotpassword' : return <ForgotPassword />
+        case 'reset': return <PasswordChangeComponent email={email}/>
         default : return <></>
     }
 }
@@ -28,6 +30,10 @@ const navLinkData = {
         'forgotpassword':{
             links:['/login','/signup'],
             messages:["Don't have an Account ?",'Signup']
+        },
+        'reset':{
+            links:['/','/login'],
+            messages:["Remeber the password ?",'Signin']
         }
 }
 
@@ -48,24 +54,25 @@ const NavLink = ({page}) => {
 
 const taglines = { 'login' :'Redifining notes taking.',
                     'signup':'Register your notes with us.',
-                    'forgotpassword':"We don't forget your notes."
+                    'forgotpassword':"We don't forgot your notes.",
+                    'reset':'Updating notes is even easier than reseting a password.'
                 }
 
-export default function Authenticate({page}){
+export default function Authenticate({page,email}){
     return (
-        <div className='d-flex'>
-            <div className='bg-black p-0 col-xl-4 col-lg-5 col-md-6 d-flex justify-content-center align-items-center' style={{minHeight:'100vh'}}>
+        <div className='d-flex justify-content-end'>
+            <div className='position-fixed bg-black p-0 col-xl-4 col-lg-5 col-md-6 d-flex justify-content-center align-items-center' style={{minHeight:'100vh',top:0,left:0}}>
                 <div className='col-12 col-lg-10 col-md-11' style={{minHeight:'80vh'}}>
                     <Link to='/' className='text-decoration-none text-white ff-mst my-4'><h3><b>N</b>oteskeeper.md</h3></Link>
                     <p className='h5 ff-mst text-white-50 my-4'>{taglines[page]}</p>
                 </div>
             </div>
-            <div className='d-flex flex-column align-items-center col-12 col-xl-8 col-lg-7 col-md-6' style={{minHeight:'100vh'}}>
+            <div className='bg-white d-flex flex-column align-items-center col-12 col-xl-8 col-lg-7 col-md-6' style={{minHeight:'100vh'}}>
                 <div className='col-12 d-flex justify-content-between align-items-center' style={{minHeight:'10vh'}}>
                     <NavLink page={page}/>
                 </div>
                 <div className='col-12 col-lg-8 col-xl-6 d-flex align-items-center justify-content-center' style={{minHeight:'90vh'}}>
-                    <Component page={page} />
+                    <Component page={page} email={email} />
                 </div>
             </div>
         </div>

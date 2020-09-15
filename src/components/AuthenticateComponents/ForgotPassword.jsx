@@ -37,12 +37,12 @@ function ForgotPasswordForm(props){
     }
 
 return (    <Fade in={true} >
-                <form onSubmit={submitForm} >
+                <form onSubmit={submitForm} className='shadow-lg p-4 rounded' >
                     <div>
                         <label className='ff-mst fxl bold my-2 '> 
                             Forgot password ?
                         </label>
-                        <p className='fm ff-mst'>Enter the email address you used when you joined and we’ll send you instructions to reset your password.</p>
+                        <p className='fm ff-mst text-muted'>Enter the email address you used when you joined and we’ll send you instructions to reset your password.</p>
                         {(state.message)?
                             <Message
                                 message={'The Email contains a password reset link which is going to expire within 10 minutes of generation.'}

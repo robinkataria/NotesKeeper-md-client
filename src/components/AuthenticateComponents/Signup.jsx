@@ -30,24 +30,24 @@ function Signup(){
 
     const submitForm = (e) => {
         setstate({...state,progress:true})
-        // axios.post('/register',state.data,{withCredentials:true})
-        // .then( res => {
-        //     switch(res.data.status){
-        //         case 200: setstate({...state,progress:false,message:true});break
-        //         case 423: setstate({...state,progress:false,error:{exist:true,errorMessage:'User Already Exist'}});break
-        //         case 500: setstate({...state,progress:false,error:{exist:true,errorMessage:'Something went wrong at our end'}});break
-        //         case 401: setstate({...state,progress:false,error:{exist:true,errorMessage:'User Already Exist'}});break
-        //         default:console.log('default signup exec')
-        //     }
-        // }).catch(error => {
-        //     setstate({...state,progress:false,error:{exist:true,errorMessage:'User Already Exist'}})
-        // })
+        axios.post('/register',state.data,{withCredentials:true})
+        .then( res => {
+            switch(res.data.status){
+                case 200: setstate({...state,progress:false,message:true});break
+                case 423: setstate({...state,progress:false,error:{exist:true,errorMessage:'User Already Exist'}});break
+                case 500: setstate({...state,progress:false,error:{exist:true,errorMessage:'Something went wrong at our end'}});break
+                case 401: setstate({...state,progress:false,error:{exist:true,errorMessage:'User Already Exist'}});break
+                default:console.log('default signup exec')
+            }
+        }).catch(error => {
+            setstate({...state,progress:false,error:{exist:true,errorMessage:'User Already Exist'}})
+        })
         e.preventDefault()
     }
 
 
     return (<Fade in={true} >
-            <form onSubmit={submitForm} className='col-12'>
+            <form onSubmit={submitForm} className='col-12 shadow-lg p-4 rounded'>
                 {
                     state.message?
                     <Message
@@ -75,8 +75,8 @@ function Signup(){
                             <label className='bold ff-mst m-0'>Email Address</label>
                             <input className='form-control' id='email' type="email" onChange={handleEmailChange} required value={state.data.email} />
                     </div>
-                    <PasswordComponent power={state.power} handlePasswordChange={handlePasswordChange} password={state.data.password}/>
-                    {
+                    <PasswordComponent label='Password'  tip={true} power={state.power} handlePasswordChange={handlePasswordChange} password={state.data.password}/>
+                     {
                         state.progress?
                         <CircularProgress size={30}/>:
                         <button className='btn btn-primary shadow' type='submit'>Create Account</button>

@@ -27,7 +27,7 @@ const Indicator = ({power})=>{
 }
 
 
-export default function PasswordComponent({password,handlePasswordChange,power = 0}){
+export default function PasswordComponent({password,handlePasswordChange,power = 0,tip = false,label = ''}){
 
     const [state,setstate] = useState({visible:false})
 
@@ -35,7 +35,8 @@ export default function PasswordComponent({password,handlePasswordChange,power =
         <>
             <div className='form-group'>
                 <div className='bold ff-mst d-flex justify-content-between'>
-                    <label>Password  <Indicator power={power}/></label>
+                    <label>{label}  <Indicator power={power}/></label>
+                    {tip?
                     <HtmlTooltip
                         arrow 
                         title={<div>
@@ -50,7 +51,7 @@ export default function PasswordComponent({password,handlePasswordChange,power =
                                 </div>}
                     >
                         <InfoOutlinedIcon/>
-                    </HtmlTooltip> 
+                    </HtmlTooltip>:<></>}
                 </div>
                 <div className='form-control d-flex justify-content-between'>
                     <input className='password col-10 col-lg-11 col-md-11 px-0'

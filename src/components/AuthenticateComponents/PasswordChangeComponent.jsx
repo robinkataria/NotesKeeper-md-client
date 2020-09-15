@@ -1,69 +1,76 @@
 import React,{useState} from 'react'
-import CopyRight from '../UtilComponents/Copyright'
-import LinkIcons from '../UtilComponents/LinkIcons'
 import Fade from '@material-ui/core/Fade'
-import {Link} from 'react-router-dom'
-import Brand from '../UtilComponents/Brand'
 import axios from 'axios'
-import LinearProgress from '../UtilComponents/LinearProgress'
+import PasswordForm from './SignupComponent/PasswordComponent'
 import {connect} from 'react-redux'
 import {setCurrentUser} from '../../redux/user/user.actions'
 import Alert from '@material-ui/lab/Alert'
+import utils from '../../utils'
+import CircularProgress from '../UtilComponents/CircularProgress'
 
-const PasswordForm = () => <div/>
+function PasswordChangeComponent({email,setCurrentUser}){
 
-function PasswordChangeComponent(props){
-    const [err,seterr] =useState({exist:0,msg:''})
-    const [progress,setprogress] = useState(false)
+    const [state,setstate] = useState({
+        data:{password:'',confirmPassword:''},
+        power:0,
+        error:{exist:false,errorMessage:''},
+        progress:false
+    })
 
-    const setdata = (obj)=>{
-        setprogress(true)
-        axios.post('/changepassword',obj,{withCredentials:true})
-        .then(result=>{
-            setprogress(false)
-            switch(result.data.status){
-                 case 200 :  props.setCurrentUser(result.data);break;
-                 case 500 :  seterr({exist:1,msg:'server error'});break;
-                 case 423 :  seterr({exist:1,msg:'Insufficient data'});break;
-                 case 401 :  seterr({exist:1,msg:'unauthorized'});break;
-                 default : return ''
-            }
-        })
-        .catch(err=>{
-            setprogress(false)
-            seterr({exist:1,msg:'server error'})
-        })
+    const handlePasswordChange = (e) =>{
+        const power = utils.passwordStrength(e.target.value)
+        setstate({...state,power:power,data:{...state.data,password:e.target.value}})
+    }
+
+    const handleConfirmPasswordChange = (e) =>{
+        const tempPassword = e.target.value
+        if(tempPassword === state.data.password.substring(0,tempPassword.length)){
+            setstate({...state,data:{...state.data,confirmPassword:e.target.value}})
+        }else{
+
+        }
+    }
+
+    const submitForm = (e) => {
+        setstate({...state,progress:true})
+        // axios.post('/changepassword',{email,password:state.data.password},{withCredentials:true})
+        // .then(result=>{
+        //     switch(result.data.status){
+        //          case 200 :  setCurrentUser(result.data);break;
+        //          case 500 :  setstate({...state,progress:false,error:{exist:true,erroMessage:'Something went wrong at our end!!!'}});break;
+        //          case 423 :  setstate({...state,progress:false,error:{exist:true,erroMessage:'Validation Error'}});break;
+        //          case 401 :  setstate({...state,progress:false,error:{exist:true,erroMessage:'Unauthorized'}});;break;
+        //          default : console.log('default Password change exec')
+        //     }
+        // })
+        // .catch(error => setstate({...state,progress:false,error:{exist:true,erroMessage:'Something went wrong at our end!!!'}}))
+        e.preventDefault()
     }
 
     return (
-         <div className='bg-dark'>
-            <div className='fullscreen-2 d-flex flex-column align-items-center justify-content-center'>
-                <div className='col-12 col-md-6 col-lg-4 col-xl-4 py-4 rounded bg-white shadow-lg my-4'>
-                   <Fade in={true}>
-                    <div className='col-12 border-bottom pb-2 border-dark'>
-                        <Brand color='dark' />
-                        {(err.exist === 1)?<div className='form-group my-2'><Alert severity='error' variant='filled'>{err.msg}</Alert></div>:<></>}
-                        {(progress)?
-                        <div className='d-flex flex-column align-items-center justify-content-center my-5'>
-                            <img src='/preloader.png' className='img-fluid' alt=''></img>
-                            <LinearProgress/>
-                        </div>:
-                        <div className='my-3'>
-                            <PasswordForm data={{email:props.email}} setdata={setdata} />
-                        </div>
-                        }   
-                        <div className='mt-5 mb-2 d-flex justify-content-center'>
-                            Don't have an Account?<Link to='/signup' className='text-decoration-none'>Signup here</Link>
-                        </div>
-                    </div>
-                    </Fade>
-                     <div className='d-flex justify-content-between mt-2'>
-                        <LinkIcons />
-                        <CopyRight/>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <Fade in={true}>
+                <form onSubmit={submitForm} className='col-12 p-4 shadow-lg rounded'>
+                    <label className='ff-mst fxl bold my-2 '>Update Password</label>
+                    {state.error.exist?<div className='form-group my-2'><Alert severity='error' variant='filled'>{state.error.errorMessage}</Alert></div>:<></>}
+                    <PasswordForm 
+                            tip={true} 
+                            label='Password' 
+                            power={state.power} 
+                            handlePasswordChange={handlePasswordChange} 
+                            password={state.data.password}
+                    />
+                    <PasswordForm 
+                            label='Confirm Password' 
+                            handlePasswordChange={handleConfirmPasswordChange} 
+                            password={state.data.confirmPassword}
+                    />
+                    {
+                        state.progress?
+                        <CircularProgress size={30} />:
+                        <button className='btn btn-primary shadow' type='submit' disbaled={state.progress} >Create Password</button>
+                    }
+                    </form>
+            </Fade>
     )
 }
 

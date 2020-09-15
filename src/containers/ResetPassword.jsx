@@ -2,11 +2,11 @@ import React,{useEffect,useState} from 'react';
 import axios from 'axios'
 import PreLoader from '../components/UtilComponents/PreLoader'
 import Alert from '@material-ui/lab/Alert'
-import PasswordChangeComponent  from '../components/AuthenticateComponents/PasswordChangeComponent'
+import Authenticate from './Authenticate'
 
 function ResetPassword(props){
     
-    const [state,setstate] = useState({loading:true,error:false,msg:''})
+    const [state,setstate] = useState({loading:false,error:false,msg:''})
     const [data,setdata] = useState({email:null})
     
     useEffect(()=>{
@@ -23,7 +23,6 @@ function ResetPassword(props){
         .catch(err=>{
             setstate({loading:false,error:true,msg:'Something Went Wrong At Our End ,Please Try Again Later'})
         })
-
     },[])
 
     if(state.loading){
@@ -39,7 +38,7 @@ function ResetPassword(props){
             </div>
         )
     }else{
-        return <PasswordChangeComponent email = {data.email} />
+        return <Authenticate email = {data.email} page={'reset'} />
     }
 }
 
