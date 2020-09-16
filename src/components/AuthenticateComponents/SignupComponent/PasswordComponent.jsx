@@ -55,7 +55,7 @@ export default function PasswordComponent({password,handlePasswordChange,power =
                 </div>
                 <div className='form-control d-flex justify-content-between'>
                     <input className='password col-10 col-lg-11 col-md-11 px-0'
-                      id='password' 
+                      
                       type={state.visible?'text':'password'} 
                       onChange={handlePasswordChange}  
                       required 

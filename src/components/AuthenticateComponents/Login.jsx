@@ -18,6 +18,7 @@ function LoginForm(props){
         progress:false,
         error:{exist:false,errorMessage:''}
     })
+
     const submitForm = (e) => {
         setstate({...state,progress:true})
         axios.post('/login',{
@@ -28,10 +29,10 @@ function LoginForm(props){
             let status = res.data.status
             switch(status){
                 case 200 : props.setCurrentUser(res.data);history.push('/');break;
-                case 401 : setstate({...state,progress:false,error:{exist:true,errorMessage:'Invalid credentials'}})
-                case 423 : setstate({...state,progress:false,error:{exist:true,errorMessage:'Validation error'}})
-                case 422 : setstate({...state,progress:false,error:{exist:true,errorMessage:'Unverified User'}})
-                case 500 : setstate({...state,progress:false,error:{exist:true,errorMessage:'Something went wrong at out end!!'}})
+                case 401 : setstate({...state,progress:false,error:{exist:true,errorMessage:'Invalid credentials'}});break
+                case 423 : setstate({...state,progress:false,error:{exist:true,errorMessage:'Validation error'}});break
+                case 422 : setstate({...state,progress:false,error:{exist:true,errorMessage:'Unverified User'}});break
+                case 500 : setstate({...state,progress:false,error:{exist:true,errorMessage:'Something went wrong at out end!!'}});break
                 default : console.log('login default exec')
             }
         })
@@ -42,7 +43,7 @@ function LoginForm(props){
     }
 
     return (<Fade in={true} >
-                <form onSubmit={submitForm} className='col-12 shadow-lg p-4 rounded'>
+                <form onSubmit={submitForm} className='col-12 shadow-lg p-4 rounded' style={{minHeight:'70vh'}}>
                     <div>
                         <label className='h5 ff-mst fl my-2 '> 
                             <span className='mr-1'>Sign in to </span>
@@ -72,7 +73,9 @@ function LoginForm(props){
                         </div>
                         <div>
                             {(state.error.exist)?
-                                <Alert severity='error' className='shadow-sm' variant='outlined'>{state.error.errorMessage}</Alert>:
+                                <Fade in={true}>
+                                    <Alert severity='error' className='shadow-sm' variant='outlined'>{state.error.errorMessage}</Alert>
+                                </Fade>:
                                 <></>
                             }
                         </div>

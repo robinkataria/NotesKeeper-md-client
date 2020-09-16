@@ -6,6 +6,7 @@ import utils from '../../utils'
 import axios from 'axios'
 import CircularProgress from '../UtilComponents/CircularProgress'
 import Message from './Message';
+import Alert from '@material-ui/lab/Alert'
 
 
 
@@ -45,16 +46,17 @@ function Signup(){
         e.preventDefault()
     }
 
-
-    return (<Fade in={true} >
-            <form onSubmit={submitForm} className='col-12 shadow-lg p-4 rounded'>
-                {
-                    state.message?
+    if (state.message){
+        return (<Fade in={true} >
                     <Message
                         message={'The Email contains a Account Verification link which is going to expire within 1 hour of generation.'}
                         title={'Account Verification Instruction has been sent to'}
                         email={state.data.email}
-                    />:
+                    />
+            </Fade>)
+    }else{
+        return (<Fade in={true} >
+            <form onSubmit={submitForm} className='col-12 shadow-lg p-4 rounded'>
                 <div >
                     <label className='h5 ff-mst fl my-2 '> 
                             <span className='mr-1'>Sign up to </span>
@@ -69,7 +71,7 @@ function Signup(){
                         
                     <div className='form-group'>
                             <label className='bold ff-mst m-0'>Name</label>
-                            <input className='form-control' id='name' type="name" onChange={handleNameChange} required value={state.data.name} />
+                            <input className='form-control' minLength={3} id='name' type="name" onChange={handleNameChange} required value={state.data.name} />
                     </div>
                     <div className='form-group'>
                             <label className='bold ff-mst m-0'>Email Address</label>
@@ -81,10 +83,19 @@ function Signup(){
                         <CircularProgress size={30}/>:
                         <button className='btn btn-primary shadow' type='submit'>Create Account</button>
                     }
+                    {
+                        state.error.exist?
+                        <Fade in={true}>
+                            <div className='my-2'>
+                                <Alert severity='error' variant='outlined' >{state.error.errorMessage}</Alert>
+                            </div>
+                        </Fade>:
+                        <></>
+                    }
                 </div>
-            }
             </form>
         </Fade>)
+    }
 }
 
 export default Signup

@@ -51,6 +51,7 @@ function VerifyEmail(props){
                 ).then(res=>{
                 switch(res.data.status){
                     case 200 : {
+                        console.log(res.data)
                             props.setCurrentUser(res.data)
                             history.push('/')
                             break;}

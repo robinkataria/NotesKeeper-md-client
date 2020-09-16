@@ -52,10 +52,8 @@ function ProfileMenu(props) {
     return name.substring(0,1).toUpperCase()+name.substring(1).toLowerCase()
   }
 
-  const beautifyname = (name)=>{
-    const middlename = (name.middlename === (undefined || null ))?'':magic(name.middlename)+' '
-    const fullname = magic(name.firstname)+' '+middlename+magic(name.lastname) 
-    return (fullname.length >= 12)?fullname.substring(0,12)+'...':fullname
+  const beautifyname = (name)=>{ 
+    return magic(name)
   }
 
   return (

@@ -8,12 +8,12 @@ import IconButton from '@material-ui/core/IconButton'
 import {Link} from 'react-router-dom'
 
 
-const Component = ({page,email = 'sharvan'}) => {
+const Component = ({page,token}) => {
     switch(page){
         case 'login' : return <Login/>
         case 'signup' : return <Signup/>
         case 'forgotpassword' : return <ForgotPassword />
-        case 'reset': return <PasswordChangeComponent email={email}/>
+        case 'reset': return <PasswordChangeComponent token={token}/>
         default : return <></>
     }
 }
@@ -58,7 +58,7 @@ const taglines = { 'login' :'Redifining notes taking.',
                     'reset':'Updating notes is even easier than reseting a password.'
                 }
 
-export default function Authenticate({page,email}){
+export default function Authenticate({page,token}){
     return (
         <div className='d-flex justify-content-end'>
             <div className='position-fixed bg-black p-0 col-xl-4 col-lg-5 col-md-6 d-flex justify-content-center align-items-center' style={{minHeight:'100vh',top:0,left:0}}>
@@ -72,7 +72,7 @@ export default function Authenticate({page,email}){
                     <NavLink page={page}/>
                 </div>
                 <div className='col-12 col-lg-8 col-xl-6 d-flex align-items-center justify-content-center' style={{minHeight:'90vh'}}>
-                    <Component page={page} email={email} />
+                    <Component page={page} token={token} />
                 </div>
             </div>
         </div>

@@ -61,7 +61,7 @@ function App(props) {
                   <Route exact path='/forgotpassword' component={()=><Authenticate page='forgotpassword' />} />
                   <Route exact path='/resetpassword' component={(prop)=>{
                         const {token} = querystring.parse(prop.location.search)
-                        return <ResetPassword token = {token} />
+                        return <Authenticate token = {token} page={'reset'} />
                       }}/>
                   <Route path='/verifyemail' component={(prop)=>{
                         const {token} = querystring.parse(prop.location.search)
