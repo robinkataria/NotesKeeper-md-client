@@ -43,7 +43,7 @@ function LoginForm(props){
     }
 
     return (<Fade in={true} >
-                <form onSubmit={submitForm} className='col-12 shadow-lg p-4 rounded' style={{minHeight:'70vh'}}>
+                <form onSubmit={submitForm} className='shadow-lg p-4 rounded'>
                     <div>
                         <label className='h5 ff-mst fl my-2 '> 
                             <span className='mr-1'>Sign in to </span>

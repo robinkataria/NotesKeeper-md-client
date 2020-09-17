@@ -61,18 +61,20 @@ const taglines = { 'login' :'Redifining notes taking.',
 export default function Authenticate({page,token}){
     return (
         <div className='d-flex justify-content-end'>
-            <div className='position-fixed bg-black p-0 col-xl-4 col-lg-5 col-md-6 d-flex justify-content-center align-items-center' style={{minHeight:'100vh',top:0,left:0}}>
+            <div className='d-md-flex d-lg-flex  d-xl-flex d-none position-fixed bg-black p-0 col-xl-4 col-lg-5 col-md-6 justify-content-center align-items-center' style={{minHeight:'100vh',top:0,left:0}}>
                 <div className='col-12 col-lg-10 col-md-11' style={{minHeight:'80vh'}}>
                     <Link to='/' className='text-decoration-none text-white ff-mst my-4'><h3><b>N</b>oteskeeper.md</h3></Link>
                     <p className='h5 ff-mst text-white-50 my-4'>{taglines[page]}</p>
                 </div>
             </div>
-            <div className='bg-white d-flex flex-column align-items-center col-12 col-xl-8 col-lg-7 col-md-6' style={{minHeight:'100vh'}}>
+            <div className='bg-white col-12 col-xl-8 col-lg-7 col-md-6' style={{minHeight:'100vh'}}>
                 <div className='col-12 d-flex justify-content-between align-items-center' style={{minHeight:'10vh'}}>
                     <NavLink page={page}/>
                 </div>
-                <div className='col-12 col-lg-8 col-xl-6 d-flex align-items-center justify-content-center' style={{minHeight:'90vh'}}>
-                    <Component page={page} token={token} />
+                <div className='col-12 p-2 d-flex justify-content-center align-items-center' style={{minHeight:'80vh'}} >
+                    <div className='col-12 col-md-10 col-lg-8 col-xl-6 p-0' >
+                        <Component page={page} token={token} />
+                    </div>
                 </div>
             </div>
         </div>

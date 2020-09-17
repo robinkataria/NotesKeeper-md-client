@@ -18,12 +18,12 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       // You can render any custom fallback UI
-      return (<div className = 'fullscreen d-flex justify-content-center align-items-center bg-black text'>
+      return (<div className = 'fullscreen d-flex justify-content-center align-items-center bg-black text-white'>
                     <div className='col-12 col-lg-6 col-md-8 col-xl-4'>
                         <p className='d-flex justify-content-center'><Brand color='Light'/></p>
                         <p><span className='display-3 text-danger'>We're fixing it</span></p>
                         <p className='bold'>This Page is having some technical hiccups.We know about the Problem and we're working to get things back to normal quickly</p>
-                        <p><Link to='/' className='btn btn-light'>Back To NotesKeeper</Link></p>
+                        <p><a href='https://noteskeeper-md.web.app' className='btn btn-light text-decoration-none'>Back To NotesKeeper</a></p>
                     </div>
       </div>)
     }

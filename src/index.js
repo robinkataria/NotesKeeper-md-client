@@ -10,8 +10,8 @@ import ErrorBoundary from './ErrorBoundary'
 import axios from 'axios'
 
 
-//axios.defaults.baseURL = 'https://noteskeeper-md.herokuapp.com'
-axios.defaults.baseURL = 'http://localhost:5000'
+axios.defaults.baseURL = 'https://noteskeeper-md.herokuapp.com'
+//axios.defaults.baseURL = 'http://localhost:5000'
 axios.defaults.withCredentials = true
 
 

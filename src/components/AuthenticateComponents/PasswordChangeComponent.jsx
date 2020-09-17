@@ -72,7 +72,7 @@ export default function PasswordChangeComponent({setCurrentUser,token}){
     }else{
         return (
             <Fade in={true}>
-                <form onSubmit={submitForm} className='col-12 p-4 shadow-lg rounded'>
+                <form onSubmit={submitForm} className='p-4 shadow-lg rounded'>
                     <label className='ff-mst fxl bold my-2 '>Update Password</label>
                     <PasswordForm 
                             key='pass'
