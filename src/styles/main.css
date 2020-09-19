@@ -82,3 +82,11 @@ text-align: center;
 .bg-black{background-color:black}
 .password{border:none !important;outline:none !important}
 button{outline:none !important}
+.bg-notebook{
+    background-color: #343a40;
+    transition:background-color 0.3s linear;
+}
+.bg-notebook:hover{
+    background-color: black;
+    transition:background-color 0.3s linear;
+}

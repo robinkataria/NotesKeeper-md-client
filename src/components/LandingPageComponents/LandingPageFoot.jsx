@@ -40,24 +40,26 @@ const developersArray = [
 export default function LandingPageFoot(){
     const year = (new Date()).getFullYear()
     return (
-        <div className='d-flex flex-column align-items-center bg-black col-12 p-4'>
-            <div className='d-flex justify-content-center col-12 col-md-10 col-lg-9 border-bottom border-gray my-4 '>
-                <div className='col-12 d-flex flex-column align-items-center py-4 mb-4'>
+        <div className='d-flex flex-column justify-content-start align-items-center bg-black col-12 p-4'>
+            <div className='d-flex justify-content-center col-12 col-md-10 col-lg-9 col-xl-8 border-bottom border-gray my-4 '>
+                <div className='col-12 my-4 p-4'>
                     <h3 className='ff-mst text-white my-2 text-center'>Start taking notes with Noteskeeper.md</h3>
-                    <div className='text-center text-white-50 my-2 col-12 col-lg-10 col-xl-6 col-md-11 fm'>
-                        Taking notes with Noteskeeper is super easy. 
-                        You can create multiple notebooks to seprate your notes.
-                        Todolists in Noteskeeper allow you to create, manage and track your daily tasks.
+                    <div className='d-flex justify-content-center col-12 fm p-0'>
+                        <div className='col-12 p-2 col-lg-10 col-xl-8 col-md-11 text-center text-white-50'>
+                            Taking notes with Noteskeeper is super easy. You can create multiple notebooks to seprate your notes. Todolists in Noteskeeper allow you to create, manage and track your daily tasks.
+                        </div>
                     </div>
-                    <Link to='/login' className='btn btn-light rounded-0 fm ff-mst my-2'>Create Notebook</Link>
+                    <div className='d-flex justify-content-center col-12 p-0'>
+                        <Link to='/login' className='btn btn-light rounded-0 fm ff-mst my-2'>Create Notebook</Link>
+                    </div>
                 </div>
             </div>
-            <div className='d-flex flex-wrap-reverse col-12 col-md-10 col-lg-9 my-4'>
-                <div className='col-12 col-md-3 col-lg-3 my-2'>
+            <div className='d-flex flex-wrap col-12 col-md-10 col-lg-9 col-xl-8 my-4'>
+                <div className='col-12 col-md-4 col-lg-4 my-2'>
                     <p className='m-0 text-white'><b>N</b>oteskeeper.md</p>
                     <p className='m-0 text-white-50 fm'>&copy; {year}</p>
                 </div>
-                <div className='col-12 col-md-3 col-lg-3 my-2'>
+                <div className='col-12 col-md-4 col-lg-4 my-2'>
                     <p className='text-white m-0'>Developers</p>
                     <ul className='list-unstyled fm my-1'>
                         {
@@ -67,14 +69,14 @@ export default function LandingPageFoot(){
                         }
                     </ul>
                 </div>
-                <div className='col-12 col-md-3 col-lg-3  my-2'>
+                <div className='col-12 col-md-4 col-lg-4  my-2'>
                     <p className='text-white m-0'>Links</p>
                     <ul className='list-unstyled my-1 fm'>
                         <li className='my-1'><Link to='/about' className='text-decoration-none text-white-50'>About us</Link></li>
                         <li className='my-1'><Link to='/contact' className='text-decoration-none text-white-50 '>Contact</Link></li>
                     </ul>
                 </div>
-                <div className='col-12 col-md-3 col-lg-3 my-2'>
+                <div className='col-12 col-md-4 col-lg-4 my-2'>
                     <a href='mailto:noteskeeper.md.service@gmail.com' className='text-decoration-none text-white' >
                         <FontAwesomeIcon icon={faEnvelope} /> 
                         <span className='text-white-50 fm'>  noteskeeper.md.service@gmail.com </span>
