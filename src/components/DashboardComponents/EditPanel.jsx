@@ -10,7 +10,6 @@ import Divider from '@material-ui/core/Divider'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faBookmark} from '@fortawesome/free-solid-svg-icons'
 import {Link} from 'react-router-dom'
-import Navbar from './Navbar'
 import Showdown from 'showdown';
 import ReactMde from 'react-mde';
 import "react-mde/lib/styles/css/react-mde-all.css";
@@ -202,10 +201,8 @@ function EditPanel(props){
     }else{
         return (<Fade in={true}>
                     <>
-                    <Navbar type='none'/>
-                    <Divider/>
                     <div className='d-flex justify-content-center'>
-                        <div className='col-12 col-md-10 col-lg-8 my-2'>
+                        <div className='col-12 my-2'>
                             <div className='my-3'>
                                 <Breadcrumbs aria-label="breadcrumb">
                                     <Link to={'/readnotebook/'+props.notebook_id} >

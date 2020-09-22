@@ -68,7 +68,7 @@ function TodoItemEditor(props){
     }
 return (<>
 <Fade in={true}>
-        <div className='sheild-panel d-flex justify-content-center align-items-center'>
+        <div className='sheild-panel d-flex justify-content-center align-items-center' >
             <div className='col-12 col-md-6 col-lg-6 bg-white rounded py-2' >
                <form onSubmit={submitForm} className = 'd-flex justify-content-between flex-column ' style={{height:'60vh'}}>
                    <div>

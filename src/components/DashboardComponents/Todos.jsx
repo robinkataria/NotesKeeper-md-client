@@ -1,9 +1,7 @@
 import React,{useState,useEffect} from 'react';
-import Navbar from '../DashboardComponents/Navbar'
 import Divider from '@material-ui/core/Divider'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPlus,faListAlt} from '@fortawesome/free-solid-svg-icons'
-import Searchbar from './Searchbar'
 import {Link} from 'react-router-dom'
 import TodoList from './todos/todolist'
 import Alert from '@material-ui/lab/Alert'
@@ -13,6 +11,7 @@ import {setTodosArray} from '../../redux/todos/todos.action'
 import LinearProgress from '../UtilComponents/LinearProgress'
 import Fade from '@material-ui/core/Fade'
 import NewTodo from './todos/NewTodo'
+import AddButton from './AddButton'
 
 
 function Todos(props){
@@ -20,7 +19,6 @@ function Todos(props){
      const [open,setopen] = useState(false)
 
     const [state,setstate] = useState({loading:true,error:false,msg:''})
-    const [search,setsearch] =useState(false)
 
     const [reset,setreset] = useState(true)
 
@@ -45,35 +43,23 @@ function Todos(props){
     return (
         <Fade in={true}>
             <>
-                <Navbar type='todos' />
-                <Divider/>
                  {(open)?<NewTodo setopen={setopen} />:<></>}
+                 <AddButton setopen={setopen}/>
                  <div className='d-flex justify-content-center'>
-                <div className='col-12 col-md-10 col-lg-8 my-2'>
+                <div className='col-12 my-2'>
                     <div className='d-flex justify-content-between align-items-center my-3'>
                         <Link to='/todos'  className='h3 my-auto text-decoration-none text-dark ' onClick={()=>setreset(!reset)}>
                             <FontAwesomeIcon icon={faListAlt}/> Todo Lists
                         </Link>
-                        <button className='btn btn-dark' onClick={()=>setopen(true)}>
-                            <FontAwesomeIcon icon={faPlus}/> New Todo
-                        </button>
                     </div>
                    
-                    <Divider />
-                        <Searchbar type='todos' setsearch={setsearch} />
-                    <Divider/>
                     <div className='my-2' style={{minHeight:'50vh'}}>
                         {(state.loading)?<LinearProgress/>:<>
                             {(state.error)?<Alert severity='error' className='col-12 my-2' variant='filled'>{state.msg}</Alert>:<>
                                 {
                                     (props.todosArray.length === 0 )?
-                                    <>
-                                        {
-                                            (search)?
-                                            <div className='col-12 p-0 my-2'><Alert severity='info' className='col-12 my-2' variant='filled'>No Result Found</Alert></div>:
-                                            <div className='col-12 p-0 my-2'><Alert severity='info' className='col-12 my-2' variant='filled'>Create Your First Todo List</Alert></div>
-                                        }
-                                    </>:
+                                    <div className='col-12 p-0 my-2'><Alert severity='info' className='col-12 my-2' variant='filled'>No Todolist</Alert></div>
+                                    :
                                     <>
                                     {
                                         props.todosArray.map(todo=>{

@@ -35,12 +35,17 @@
 }
 .sheild-panel{
     position: fixed;
-    z-index:5;
+    z-index:1200;
     top:0;
     left:0;
     height:100vh;
     width:100%;
     background-color:rgba(0,0,0,0.75);
+}
+
+.sidebar{
+    min-height: 100vh;
+    background-image: linear-gradient(to right bottom,rgb(0, 0, 0),rgb(17, 16, 16));
 }
 
 .dropzone {
@@ -89,4 +94,52 @@ button{outline:none !important}
 .bg-notebook:hover{
     background-color: black;
     transition:background-color 0.3s linear;
+}
+
+.sidebar-links-group{
+    margin:1rem 0;
+    padding:0;
+}
+
+.sidebar-links-item{
+    width: 100%;
+    text-transform: uppercase;
+    padding: 0.75rem 2rem;
+    color:white !important;
+    text-decoration: none !important;
+    display: inline-block;
+    transition:all 0.3s;
+}
+
+.sidebar-links-item-active{
+    width: 100%;
+    text-transform: uppercase;
+    padding: 0.75rem 2rem;
+    color:black !important;
+    background-color: white;
+    text-decoration: none !important;
+    display: inline-block;
+}
+
+.sidebar-links-item:hover{
+    background-color: rgba(255, 255, 255, 0.089);
+    text-decoration: none;
+}
+
+.sidebar-links-item:active{
+    background-color:  rgba(0,0,0,0.2);
+}
+
+.search-bar{
+    outline:none !important;
+    border:none !important;
+    background-color: transparent;
+}
+
+.search-bar-box{
+    background-color:#00000007;
+}
+
+.search-bar-box:hover, .search-bar-box:active{
+    background-color:#00000017;
 }

@@ -39,7 +39,7 @@ function Note(props){
     }
 
 return (<Fade in={true}><>
-                            <div className='border border-dark p-2 rounded'>
+                            <div className='text-white bg-notebook shadow p-2 rounded m-0'>
                                 {(error)?<div className='form-group'>
                                     <Alert severity='error' variant='filled'>
                                         <span className='fm'>
@@ -48,25 +48,25 @@ return (<Fade in={true}><>
                                     </Alert>
                                 </div>:<></>
                                 }
-                                <div className='d-flex justify-content-between align-items-center'>
+                                <div className='d-flex justify-content-between align-items-center my-2'>
                                     <Link to={'/readnote/'+(props.notebook_id || '')+'/'+(props.note_id || '')}
-                                     className='h6 text-dark text-break'>
+                                     className='text-decoration-none m-0 fl text-white text-break'>
                                         {(props.name.length > 12)?props.name.substring(0,12)+'...':props.name}
                                     </Link>
                                     {(progress)?<CircularProgress/>:
-                                    <IconButton onClick={deleteNote}>
-                                        <DeleteIcon />
+                                    <IconButton onClick={deleteNote} size='small' color='inherit'>
+                                        <DeleteIcon fontSize='small' />
                                     </IconButton>
                                     }
                                 </div>
-                                <div className='form-group'>
-                                    <label className='text-muted fm'>
-                                        {date.getDate()+'/'+date.getMonth()+'/'+date.getFullYear()+' '+date.getHours()+':'+((date.getMinutes() <= 9)?'0'+date.getMinutes():date.getMinutes())}
-                                    </label>
-                                </div>
-                                <p className='fm'>
+                                <p className='fm my-2 text-white-50'>
                                     {(props.commit_message.length > 100)?props.commit_message.substring(0,100)+'...':props.commit_message}
                                 </p>
+                                <div className='form-group my-2'>
+                                    <span className='fm m-0'>
+                                        {date.getDate()+'/'+date.getMonth()+'/'+date.getFullYear()+' '+date.getHours()+':'+((date.getMinutes() <= 9)?'0'+date.getMinutes():date.getMinutes())}
+                                    </span>
+                                </div>
                             </div>
                         </>
                         </Fade>

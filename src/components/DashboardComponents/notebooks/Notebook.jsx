@@ -38,7 +38,7 @@ function Notebook(props){
 
 return (<Fade in={true}>
             <div >
-                    <div className='text-decoration-none text-white bg-notebook shadow p-2 rounded m-0'>
+                    <div className='text-white bg-notebook shadow p-2 rounded m-0'>
                                 {(error)?<div className='form-group'>
                                     <Alert severity='error' variant='filled'>
                                         <span className='fm'>

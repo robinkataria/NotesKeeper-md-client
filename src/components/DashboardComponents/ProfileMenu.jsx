@@ -3,11 +3,11 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser,faChevronUp } from '@fortawesome/free-solid-svg-icons'
-import history from '../../../history'
+import history from '../../history'
 import axios from 'axios'
 import {connect} from 'react-redux'
-import {setCurrentUser} from '../../../redux/user/user.actions'
-import CircularProgress from '../../UtilComponents/CircularProgress'
+import {setCurrentUser} from '../../redux/user/user.actions'
+import CircularProgress from '../UtilComponents/CircularProgress'
 
 function ProfileMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);

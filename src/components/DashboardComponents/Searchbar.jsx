@@ -6,8 +6,9 @@ import {setNotebooksArray,setNotebook} from '../../redux/notebooks/notebooks.act
 import {setTodosArray,setTodoList} from '../../redux/todos/todos.action'
 import {connect} from 'react-redux'
 import axios  from 'axios'
-import Alert from '@material-ui/lab/Alert'
 import CircularProgress from '../UtilComponents/CircularProgress'
+import InfoIcon from '@material-ui/icons/Info';
+import Tooltip from '@material-ui/core/Tooltip'
 
 const useStyles = makeStyles((theme) => ({
   iconButton: {
@@ -76,17 +77,24 @@ function Searchbar(props) {
   }
 
   return (<>
-    <div className='bg-light d-flex justify-content-center align-items-center rounded my-2'>
-        <input className='form-control bg-light border-0' id='search' onChange={checkLength} ref={query} />
+    <div className='d-flex search-bar-box align-items-center rounded mx-2  text-dark'>
+        <input className='search-bar p-2' id='search' onChange={checkLength} ref={query} />
         {(progress)?
-          <CircularProgress className='fm'/>:
-          <IconButton disabled={progress} className={classes.iconButton}  onClick={search} aria-label="search">
+          <div className='d-flex justify-content-center align-items-center p-2'>
+              <CircularProgress size={30} />
+          </div>
+          :
+          <IconButton disabled={progress} className={classes.iconButton}  onClick={search} color='inherit' aria-label="search">
             <SearchIcon />
           </IconButton>
         }
     </div>
     <div className='my-2'>
-      {(error.exist)?<Alert severity='error' variant='filled'>{error.msg}</Alert>:<></>}
+      {(error.exist)?
+      <Tooltip title={error.msg} arrow>
+        <InfoIcon color='error'/>
+      </Tooltip>:<></>
+      }
     </div>
     </>
   );

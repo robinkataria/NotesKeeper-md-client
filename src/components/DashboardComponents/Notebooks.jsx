@@ -1,10 +1,7 @@
 import React,{useState,useEffect} from 'react';
-import Navbar from '../DashboardComponents/Navbar'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faBookmark,faPlus} from '@fortawesome/free-solid-svg-icons'
-import Divider from '@material-ui/core/Divider'
 import {Link} from 'react-router-dom'
-import Searchbar from './Searchbar'
 import NewNotebook from './notebooks/NewNotebook'
 import Alert from '@material-ui/lab/Alert'
 import axios from 'axios'
@@ -14,6 +11,7 @@ import Notebook from './notebooks/Notebook'
 import LinearProgress from '../UtilComponents/LinearProgress'
 import Fade from '@material-ui/core/Fade'
 import utils from '../../utils/index'
+import AddButton from './AddButton'
 
 function Notebooks(props){
 
@@ -21,7 +19,6 @@ function Notebooks(props){
 
     const [state,setstate] = useState({loading:true,error:false,msg:''})
 
-    const [search,setsearch] = useState(false)
     const [reset,setreset] = useState(true)
     
     useEffect(()=>{
@@ -44,36 +41,23 @@ function Notebooks(props){
     return (
         <Fade in={true}>
             <>
-            <Navbar type='notebooks'/>
-            <Divider/>
             {(open)?<NewNotebook setopen={setopen}/>:<></>}
-            <div className='d-flex justify-content-center'>
-                <div className='col-12 col-md-10 col-lg-8 my-2'>
-                    <div className='d-flex justify-content-between align-items-center my-3'>
+            <AddButton setopen={setopen}/>
+                <div className='col-12 p-0 my-2'>
+                    <div className='my-3'>
                         <Link to='/' className='h3 my-auto text-decoration-none text-dark' onClick={()=>setreset(!reset)}>
                             <FontAwesomeIcon icon={faBookmark}/> Notebooks
                         </Link>
-                        <button className='btn btn-dark' onClick={()=>setopen(true)}>
-                            <FontAwesomeIcon icon={faPlus}/> New Notebook
-                        </button>
                     </div>
                     
-                    <Divider />
-                        <Searchbar type='notebooks' setsearch={setsearch}/>
-                    <Divider/>
+                    
                     <div className='d-flex flex-wrap' style={{minHeight:'55vh'}}>
                         {(state.loading)?<LinearProgress/>:<>
                             {(state.error)?<Alert severity='error' className='col-12 my-2' variant='filled'>{state.msg}</Alert>:
                             <>
                                 {
                                     (props.notebooksArray.length === 0)?
-                                    <>
-                                        {
-                                            (search)?
-                                                  <div className='col-12 p-0 my-2'><Alert severity='info' variant='filled'>No Result Found</Alert></div>:
-                                                  <div className='col-12 p-0 my-2'><Alert severity='info'  variant='filled'>Create Your First Notebook</Alert></div>
-                                        }
-                                    </>:
+                                    <div className='col-12 p-0 my-2'><Alert severity='info' variant='filled'>No Notebook</Alert></div>:
                                     <>
                                         {
                                              utils.createColumns(props.notebooksArray).map((column,index)=>{
@@ -92,7 +76,6 @@ function Notebooks(props){
                             }
                         </>}
                     </div>
-                </div>
                 
             </div>
         </>

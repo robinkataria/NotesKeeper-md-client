@@ -5,7 +5,6 @@ import axios from 'axios'
 import {connect} from 'react-redux'
 import Alert from '@material-ui/lab/Alert'
 import PreLoader from '../UtilComponents/PreLoader'
-import Navbar from './Navbar'
 import Divider from '@material-ui/core/Divider'
 import {FontAwesomeIcon} from  '@fortawesome/react-fontawesome'
 import {faList, faChevronLeft} from '@fortawesome/free-solid-svg-icons'
@@ -20,6 +19,7 @@ import Task from  './todos/Task'
 import Badge from '@material-ui/core/Badge'
 import CircularProgress from '../UtilComponents/CircularProgress'
 import utils from '../../utils'
+import AddButton from './AddButton'
 
 
 
@@ -27,7 +27,6 @@ import utils from '../../utils'
 
 function TodoListPanel(props){
 
-    const [search,setsearch] = useState(false)
     const [open,setopen] = useState(false)
     const [state,setstate] = useState({loading:true,error:false,msg:''})
     const [effect,applyEffect] = useState(true)
@@ -110,11 +109,10 @@ function TodoListPanel(props){
     }else{
         return (<Fade in = {true} >
                     <>
-                    <Navbar type='none'/>
-                    <Divider />
+                    <AddButton setopen={setopen}/>
                     {(open)?<TodoItemEditor todo_id={props.todo_id} mode='new' setopen={setopen}/>:<></>}
                      <div className='d-flex justify-content-center'>
-                        <div className='col-12 col-md-10 col-lg-8 my-2'>
+                        <div className='col-12 my-2'>
                             <div className='my-1 d-flex justify-content-between align-items-center'>
                                 <div className='d-inline'>
                                     <Link to='/todos' className='text-decoration-none text-dark mr-2' >
@@ -145,26 +143,14 @@ function TodoListPanel(props){
                                     </IconButton>
                                     </>
                                     }
-                                    <IconButton onClick={()=>setopen(true)}>
-                                        <AddIcon/>
-                                    </IconButton>
+                                    
                                 </div>
                             </div>
                             {(err.exist === 1)?<Alert severity='error' className='col-12 p-0 my-2' variant='filled'>{err.msg}</Alert>:<></>}
-                           
-                            <Divider />
-                                <Searchbar type='todolist' todo_id={props.todo_id} setsearch={setsearch}/>
-                            <Divider/>
                             <div className='d-flex flex-wrap' style={{minHeight:'55vh'}}>
                                         {
                                             (props.todoList.items.length === 0)?
-                                            <>
-                                                {
-                                                    (search)?
-                                                        <div className='col-12 p-0 my-2'><Alert severity='info' variant='filled'>No Result Found</Alert></div>:
-                                                        <div className='col-12 p-0 my-2'><Alert severity='info'  variant='filled'>Create Your First Task</Alert></div>
-                                                }
-                                            </>:
+                                            <div className='col-12 p-0 my-2'><Alert severity='info' variant='filled'>No Result Found</Alert></div>:
                                             <>
                                                 {
                                                     utils.createColumns(props.todoList.items).map((column,index)=>{
