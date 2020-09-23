@@ -57,7 +57,7 @@ function NewNotebook(props){
     
     }
 
-
+if( props.open == true) {
 return(
     <Fade in={true}>
         <div className=' sheild-panel d-flex justify-content-center align-items-center'>
@@ -92,6 +92,7 @@ return(
         </div>
     </Fade>
 )
+}else return <></>
 
 }
 

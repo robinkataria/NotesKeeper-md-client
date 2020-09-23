@@ -28,6 +28,12 @@ const useStyles = makeStyles((theme) => ({
       flexShrink: 0,
     },
   },
+   codeArea:{
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+    },
+    width:'100%'
+  },
   appBar: {
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
@@ -45,15 +51,11 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
   },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-  },
 }));
 
  const Navbar = ({handleDrawerToggle,menuButton}) => {
       return (
-          <div className='d-flex p-2 align-items-center bg-white justify-content-between'>
+          <div className='d-flex p-2 px-4 align-items-center bg-white justify-content-between'>
                 <div className='text-dark' >   
                     <IconButton
                         color="inherit"
@@ -66,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
                     </IconButton>
                    
                 </div>
-                <div className='d-flex align-items-center '>
+                <div className='d-flex align-items-center justify-content-end'>
                     <SearchbarRouter />
                     <ProfileMenu/>
                 </div>
@@ -85,13 +87,13 @@ function ResponsiveDrawer(props) {
     setMobileOpen(!mobileOpen);
   };
 
-  const drawer = (
+  const SideDrawer = ({toggler}) => (
     <div className='sidebar' >
         <div className='px-3 py-2'>
             <Brand color='light'/>
         </div>
         <div className='border-bottom border-white' />
-        <SideBarRouter/>
+        <SideBarRouter toggler={toggler}/>
     </div>
   );
 
@@ -100,7 +102,7 @@ function ResponsiveDrawer(props) {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <div className={classes.root}>
+    <div className='d-flex col-12 p-2'>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
             <Navbar handleDrawerToggle={handleDrawerToggle} menuButton={classes.menuButton} />
@@ -122,7 +124,7 @@ function ResponsiveDrawer(props) {
               keepMounted: true, // Better open performance on mobile.
             }}
           >
-            {drawer}
+            <SideDrawer toggler = {handleDrawerToggle} />
           </Drawer>
         </Hidden>
         <Hidden xsDown implementation="css">
@@ -133,13 +135,13 @@ function ResponsiveDrawer(props) {
             variant="permanent"
             open
           >
-            {drawer}
+            <SideDrawer toggler = {()=>{}} />
           </Drawer>
         </Hidden>
       </nav>
-      <main className={classes.content}>
+      <main className={classes.codeArea} style={{minHeight:'95vh'}}>
         <div className={classes.toolbar} />
-            <DashboardRouter/>
+        <DashboardRouter/>
       </main>
     </div>
   );

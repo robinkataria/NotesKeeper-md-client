@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faBookmark,faPlus} from '@fortawesome/free-solid-svg-icons'
+import {faBookmark} from '@fortawesome/free-solid-svg-icons'
 import {Link} from 'react-router-dom'
 import NewNotebook from './notebooks/NewNotebook'
 import Alert from '@material-ui/lab/Alert'
@@ -13,25 +13,59 @@ import Fade from '@material-ui/core/Fade'
 import utils from '../../utils/index'
 import AddButton from './AddButton'
 
+
+const NotebookColumn = ({column}) => {
+    return column.map(notebook=>{
+            return <Notebook 
+                    name={notebook.name} 
+                    description={notebook.description}
+                    key={notebook._id} 
+                    createdAt={notebook.createdAt} 
+                    notebook_id={notebook._id} 
+                    />
+            })
+}
+
+const NotebooksDisplay = ({notebooksArray}) =>{
+    return notebooksArray.map((column,index)=>{
+            return (<div className='col-12 col-lg-3 col-md-3 col-xl-3 p-2' style={{minHeight:'auto'}} key={index}>
+                        <NotebookColumn column ={column} />
+                    </div>)
+            })
+}
+
+const DisplayArea = ({loading,error,notebooksArray}) => {
+    if (loading) return <LinearProgress />
+    else if (error.exist) {
+        return <Alert severity='error' className='col-12 my-2' variant='filled'>{error.msg}</Alert>
+    } else if (notebooksArray.length === 0){
+        return (<div className='col-12 p-0 my-2'>
+                    <Alert severity='info' variant='filled'>No Notebook</Alert>
+                </div>)
+    } else {
+        return <NotebooksDisplay notebooksArray={utils.createColumns(notebooksArray)} />
+    }
+}
+
+
 function Notebooks(props){
 
     const [open,setopen] = useState(false)
-
     const [state,setstate] = useState({loading:true,error:false,msg:''})
-
     const [reset,setreset] = useState(true)
     
     useEffect(()=>{
         axios.get('/notesapi/readallnotebooks',{withCredentials:true})
-        .then(result=>{
-            let status = result.data.status
-            if(status === 500){
-                setstate({loading:false,error:true,msg:'server error'})
-            }else if(status === 401){
-                setstate({loading:false,error:true,msg:'Unauthorized'})
-            }else if(status === 200){
-                setstate({loading:false,error:false,msg:''})
-                props.setNotebooksArray(result.data.notebooks)
+        .then(res=>{
+            switch(res.data.status){
+                case 200: {
+                    setstate({loading:false,error:false,msg:''})
+                    props.setNotebooksArray(res.data.notebooks)
+                    break;
+                }
+                case 500: setstate({loading:false,error:true,msg:'server error'});break;
+                case 401: setstate({loading:false,error:true,msg:'Unauthorized'});break;
+                default: console.log('Notesbook component Default exec');
             }
         }).catch(err=>{
             setstate({loading:false,error:true,msg:'server error'})
@@ -41,44 +75,23 @@ function Notebooks(props){
     return (
         <Fade in={true}>
             <>
-            {(open)?<NewNotebook setopen={setopen}/>:<></>}
+            <NewNotebook open={open} setopen={setopen}/>
             <AddButton setopen={setopen}/>
-                <div className='col-12 p-0 my-2'>
-                    <div className='my-3'>
-                        <Link to='/' className='h3 my-auto text-decoration-none text-dark' onClick={()=>setreset(!reset)}>
-                            <FontAwesomeIcon icon={faBookmark}/> Notebooks
-                        </Link>
-                    </div>
-                    
-                    
-                    <div className='d-flex flex-wrap' style={{minHeight:'55vh'}}>
-                        {(state.loading)?<LinearProgress/>:<>
-                            {(state.error)?<Alert severity='error' className='col-12 my-2' variant='filled'>{state.msg}</Alert>:
-                            <>
-                                {
-                                    (props.notebooksArray.length === 0)?
-                                    <div className='col-12 p-0 my-2'><Alert severity='info' variant='filled'>No Notebook</Alert></div>:
-                                    <>
-                                        {
-                                             utils.createColumns(props.notebooksArray).map((column,index)=>{
-                                                       return (<div className='col-12 col-lg-3 col-md-3 col-xl-3 p-2' style={{minHeight:'auto'}} key={index}>
-                                                                { column.map(notebook=>{
-                                                                        return <Notebook name={notebook.name} description={notebook.description}
-                                                                        key={notebook._id} createdAt={notebook.createdAt} notebook_id={notebook._id} />
-                                                                    })
-                                                                }
-                                                                </div>)
-                                                        })
-                                        }
-                                    </>
-                                }
-                            </>
-                            }
-                        </>}
-                    </div>
-                
+            <div className='col-12 p-0 my-2'>
+                <div className='my-3'>
+                    <Link to='/' className='h3 my-auto text-decoration-none text-dark' onClick={()=>setreset(!reset)}>
+                        <FontAwesomeIcon icon={faBookmark}/> Notebooks
+                    </Link>
+                </div>
+                <div className='d-flex flex-wrap' style={{minHeight:'55vh'}}>
+                    <DisplayArea 
+                        loading ={state.loading}
+                        error = {{exist:state.error,msg:state.msg}}
+                        notebooksArray = {props.notebooksArray}
+                    />
+                </div>
             </div>
-        </>
+            </>
         </Fade>
     )
 }

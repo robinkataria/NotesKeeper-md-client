@@ -81,7 +81,6 @@ function DisplayPanel(props){
     }else{
         return (<Fade in={true}>
                     <>
-                    <div className='d-flex justify-content-center'>
                         <div className='col-12 my-2'>
                             <div className='my-3'>
                                 <Breadcrumbs aria-label="breadcrumb">
@@ -93,7 +92,7 @@ function DisplayPanel(props){
                                     </label>
                                 </Breadcrumbs>
                             </div>
-                            <div className="d-flex  flex-row justify-content-between p-2 fm  border bg-light rounded-top align-items-center">
+                            <div className="d-flex col-12  justify-content-between p-2 fm  border bg-light rounded-top align-items-center">
                                 <div>
                                     <ul className="list-inline m-0">
                                         <li className="list-inline-item" >{Buffer.byteLength(props.note.data,'utf-8')} bytes</li>
@@ -113,12 +112,11 @@ function DisplayPanel(props){
                             </div>
                             {(err.exist === 1)?<Alert severity='error' variant='filled'>{err.msg}</Alert>:<></>}
                             <Fade in={true}>
-                                <div className=" p-4 m-0 fm border rounded-bottom " style={{minHeight:'70vh'}}>
+                                <div className="col-12 p-4 m-0 fm border rounded-bottom " style={{minHeight:'70vh'}}>
                                     <ReactMarkdown source={props.note.data} />
                                 </div>
                             </Fade>
                         </div>
-                    </div>
                     </>
                 </Fade>)
     }

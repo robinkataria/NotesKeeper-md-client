@@ -18,8 +18,6 @@ function Notes(props){
 
     const [state,setstate] = useState({loading:true,error:false,msg:''})
 
-    const [search,setsearch] = useState(false)
-
     const [error,seterror] = useState({exist:false,msg:''})
 
     const [progress,setprogress] = useState(false)
@@ -99,7 +97,7 @@ function Notes(props){
                             <FontAwesomeIcon icon={faPlus}/> New Note
                         </Link>
                     </div>
-                    <div className='d-flex flex-wrap' style={{minHeight:'55vh'}}>
+                    <div className='d-flex flex-wrap' style={{minHeight:'40vh'}}>
                         {(state.loading)?<LinearProgress/>:<>
                             {(state.error)?<Alert severity='error' className='col-12 my-2' variant='filled'>{state.msg}</Alert>:
                             <>
