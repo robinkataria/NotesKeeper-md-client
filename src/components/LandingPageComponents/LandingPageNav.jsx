@@ -1,7 +1,6 @@
 import React from 'react';
 import Brand  from '../UtilComponents/Brand'
-import NavLinkList from './nav/NavLinkList'
-import NavAuthlinks from './nav/NavAuthlinks'
+import {Link} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 
@@ -13,8 +12,20 @@ export default function LandingPageNav(){
             <FontAwesomeIcon icon={faBars} />
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <NavLinkList/>
-            <NavAuthlinks/>
+            <ul className="navbar-nav ml-auto text-dark">
+                <li className="nav-item mr-4 ">
+                    <Link className="nav-link text-secondary" to="/login">Dashboard</Link>
+                </li>
+                <li className="nav-item mr-4 ">
+                    <Link className="nav-link text-secondary" to="/contact">Contact</Link>
+                </li>
+                <li className="nav-item mr-4 ">
+                    <Link className="btn btn-light rounded px-4 fm" to='/login'>Sign in</Link>
+                </li>
+                <li className="nav-item mr-4 ">
+                    <Link className="btn btn-dark  rounded px-4 fm" to='/signup'>Register</Link>
+                </li>
+            </ul>
         </div>
     </nav>)
 }

@@ -14,7 +14,7 @@ const developers = [
 
 export default function Team(){
     return (
-        <div className='col-12 d-flex justify-content-center my-4'>
+        <div className='col-12 d-flex justify-content-center align-items-center' style={{minHeight:'60vh'}}>
             <div className='col-12 col-lg-8 col-md-10 d-flex flex-column align-items-center'>
                 <h3 className='ff-mst fl bold'>Team</h3>
                 <p className='text-muted'>Meet our team of Developers</p>

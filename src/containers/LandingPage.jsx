@@ -4,6 +4,7 @@ import LandingPageNav from '../components/LandingPageComponents/LandingPageNav'
 import LandingPageFoot from '../components/LandingPageComponents/LandingPageFoot'
 import LandingPageMiddle  from '../components/LandingPageComponents/LandingPageMiddle'
 import Team from '../components/LandingPageComponents/Team'
+import ProductUI from  '../components/LandingPageComponents/ProductUI'
 
 export default function LandingPage(){
     return (

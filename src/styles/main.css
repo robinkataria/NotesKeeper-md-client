@@ -143,3 +143,10 @@ button{outline:none !important}
 .search-bar-box:hover, .search-bar-box:active{
     background-color:#00000017;
 }
+
+.header{
+    min-height:90vh;
+    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+    background-size: cover;
+    background-position: top;
+}
