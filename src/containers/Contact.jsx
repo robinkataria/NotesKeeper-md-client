@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom'
 export default function Contact({page}){
     return (
         <div className='d-flex justify-content-end'>
-            <div className='d-md-flex d-lg-flex d-xl-flex d-none position-fixed bg-black p-0 col-xl-4 col-lg-5 col-md-6 justify-content-center align-items-center' style={{minHeight:'100vh',top:0,left:0}}>
+            <div className='d-md-flex d-lg-flex d-xl-flex d-none position-fixed bg-black p-0 col-xl-4 col-lg-5 col-md-5 justify-content-center align-items-center' style={{minHeight:'100vh',top:0,left:0}}>
                 <div className='col-12 col-lg-10 col-md-11 d-flex flex-column justify-content-between' style={{minHeight:'80vh'}}>
                     <div>
                         <Link to='/' className='text-decoration-none text-white ff-mst my-4'><h3><b>N</b>oteskeeper.md</h3></Link>
@@ -21,7 +21,7 @@ export default function Contact({page}){
                     </p>
                 </div>
             </div>
-            <div className=' bg-white col-12 col-xl-8 col-lg-7 col-md-6' style={{minHeight:'100vh'}}>
+            <div className=' bg-white col-12 col-xl-8 col-lg-7 col-md-7' style={{minHeight:'100vh'}}>
                 <div className='col-12 d-flex justify-content-between align-items-center' style={{minHeight:'10vh'}}>
                     <Link to='/' className='mr-2'>
                         <IconButton>

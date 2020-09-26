@@ -1,7 +1,6 @@
-import React,{useState,useEffect} from 'react';
-import Divider from '@material-ui/core/Divider'
+import React,{useState,useEffect} from 'react'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faPlus,faListAlt} from '@fortawesome/free-solid-svg-icons'
+import {faListAlt} from '@fortawesome/free-solid-svg-icons'
 import {Link} from 'react-router-dom'
 import TodoList from './todos/todolist'
 import Alert from '@material-ui/lab/Alert'
@@ -14,9 +13,26 @@ import NewTodo from './todos/NewTodo'
 import AddButton from './AddButton'
 
 
+const DisplayArea = ({loading,error,todosArray}) => {
+    if (loading) return <LinearProgress />
+    else if (error.exist) {
+        return (<div className='col-12 p-2 my-2'>
+                    <Alert severity='error' className='col-12 my-2' variant='filled'>{error.msg}</Alert>
+                </div>)
+    } else if (todosArray.length === 0){
+        return (<div className='col-12 p-2 my-2'>
+                    <Alert severity='info' variant='filled'>No TodoList</Alert>
+                </div>)
+    } else {
+        return todosArray.map( todo =>{
+            return <TodoList createdAt={todo.createdAt} name={todo.name} key={todo._id} todo_id={todo._id} />
+            })
+    }
+}
+
 function Todos(props){
 
-     const [open,setopen] = useState(false)
+    const [open,setopen] = useState(false)
 
     const [state,setstate] = useState({loading:true,error:false,msg:''})
 
@@ -43,34 +59,22 @@ function Todos(props){
     return (
         <Fade in={true}>
             <>
-                 {(open)?<NewTodo setopen={setopen} />:<></>}
+                 <NewTodo open={open} setopen={setopen} />
                  <AddButton setopen={setopen}/>
                  <div className='d-flex justify-content-center'>
                 <div className='col-12 my-2'>
-                    <div className='d-flex justify-content-between align-items-center my-3'>
-                        <Link to='/todos'  className='h3 my-auto text-decoration-none text-dark ' onClick={()=>setreset(!reset)}>
-                            <FontAwesomeIcon icon={faListAlt}/> Todo Lists
+                    <div className='p-2'>
+                        <Link to='/' className='h4 text-decoration-none text-dark ff-mst' onClick={()=>setreset(!reset)}>
+                            <FontAwesomeIcon icon={faListAlt}/> Todo lists
                         </Link>
                     </div>
                    
                     <div className='my-2' style={{minHeight:'50vh'}}>
-                        {(state.loading)?<LinearProgress/>:<>
-                            {(state.error)?<Alert severity='error' className='col-12 my-2' variant='filled'>{state.msg}</Alert>:<>
-                                {
-                                    (props.todosArray.length === 0 )?
-                                    <div className='col-12 p-0 my-2'><Alert severity='info' className='col-12 my-2' variant='filled'>No Todolist</Alert></div>
-                                    :
-                                    <>
-                                    {
-                                        props.todosArray.map(todo=>{
-                                            return <TodoList createdAt={todo.createdAt} name={todo.name} key={todo._id} todo_id={todo._id} />
-                                        })
-                                    }
-                                    </>
-                                }
-                            </>}
-                        </>}
-                        
+                        <DisplayArea 
+                            loading ={state.loading}
+                            error = {{exist:state.error,msg:state.msg}}
+                            todosArray = {props.todosArray}
+                        />
                     </div>
                 </div>
              </div>

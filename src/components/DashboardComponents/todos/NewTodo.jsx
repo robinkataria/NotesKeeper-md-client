@@ -5,6 +5,8 @@ import LinearProgress from '../../UtilComponents/LinearProgress'
 import Alert from '@material-ui/lab/Alert'
 import {setTodosArray} from '../../../redux/todos/todos.action'
 import {connect} from 'react-redux'
+import IconButton from '@material-ui/core/IconButton'
+import CancelIcon from '@material-ui/icons/Cancel'
 
 function NewTodo(props){
 
@@ -45,18 +47,27 @@ function NewTodo(props){
             })
     }
 
+    if (props.open){
 
 return(
     <Fade in={true}>
-        <div className='sheild-panel d-flex justify-content-center align-items-center'>
-            <div className='col-12 col-md-6 col-lg-6 bg-white rounded py-2' >
-               <form onSubmit={submitForm} className = 'd-flex justify-content-between flex-column ' style={{height:'60vh'}}>
+        <div className='sheild-panel p-2 d-flex justify-content-center align-items-center'>
+               <form 
+                    onSubmit={submitForm} 
+                    className = 'col-12 col-md-6 col-lg-6 bg-white rounded p-4 d-flex flex-column justify-content-between' 
+                    style={{minHeight:'60vh'}}>
+                   
                    <div>
+                       <div className='d-flex justify-content-end p-0 text-muted'>
+                            <IconButton color='inherit' size='small' disabled={progress} onClick={()=>props.setopen(false)}>
+                                <CancelIcon />
+                            </IconButton>
+                        </div>
                         <div className='form-group my-2'>
                             {(progress)?<LinearProgress/>:<></>}
                         </div>
-                        <label className='h5 my-2'>Enter a Name for Your Todo List</label>
-                        <p className='my-1 fm text-muted'>Name needs to be different from other Todo Lists</p>
+                        <p className='my-1 ff-mst bold'>Enter a Name for Your Todo List</p>
+                        <p className='my-1 fsm ff-mst text-muted'>Name needs to be different from other Todo Lists</p>
                         <div className='form-group my-2'>
                             <input className='form-control' id='tdname'  ref={todoName} required />
                         </div>
@@ -68,14 +79,13 @@ return(
                         </div>
                     </div>
                     <div className='d-flex justify-content-end my-2'>
-                        <button className='btn btn-outline-danger mr-2' disabled={progress} onClick={()=>props.setopen(false)}>Cancel</button>
-                        <button className='btn btn-outline-success' disabled={progress || err.exist === 1} type='submit'>Create</button>
+                        <button className='btn btn-primary shadow' disabled={progress || err.exist === 1} type='submit'>Create</button>
                     </div>
                 </form>
-            </div>
         </div>
     </Fade>
 )
+    }else return <></>
 
 }
 

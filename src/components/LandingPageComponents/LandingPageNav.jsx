@@ -19,11 +19,11 @@ export default function LandingPageNav(){
                 <li className="nav-item mr-4 ">
                     <Link className="nav-link text-secondary" to="/contact">Contact</Link>
                 </li>
-                <li className="nav-item mr-4 ">
-                    <Link className="btn btn-light rounded px-4 fm" to='/login'>Sign in</Link>
+                <li className="nav-item mr-4 py-1 ">
+                    <Link className="btn btn-light rounded-0 fm " to='/login'>Sign in</Link>
                 </li>
-                <li className="nav-item mr-4 ">
-                    <Link className="btn btn-dark  rounded px-4 fm" to='/signup'>Register</Link>
+                <li className="nav-item mr-4 py-1 ">
+                    <Link className="btn btn-dark  rounded-0 fm" to='/signup'>Register</Link>
                 </li>
             </ul>
         </div>

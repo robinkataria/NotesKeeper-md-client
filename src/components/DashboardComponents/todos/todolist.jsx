@@ -38,32 +38,41 @@ function TodoList(props){
         })  
     }
     
-    return (<Fade in={true}>
-            <>
-                <div className='d-flex justify-content-between border border-gray mb-2'>
-                                <div className='bg-dark text-white col-1 d-flex justify-content-center align-items-center'>
-                                    <FontAwesomeIcon icon={faList} size='lg' />
-                                </div>
-                                <Link to={'/todos/readtodolist/'+(props.todo_id || '')} className='h6 my-auto text-dark p-1 col-5 px-2' >
-                                    {(props.name.length > 12)?props.name.substring(0,12)+'...':props.name}
-                                </Link>
-                                <label className='my-auto p-1 col-4 px-2'>
-                                    {date.getDate()+'/'+date.getMonth()+'/'+date.getFullYear()+' '+date.getHours()+':'+((date.getMinutes() <= 9)?'0'+date.getMinutes():date.getMinutes())}
-                                </label>
-                                {(progress)?<CircularProgress/>:
-                                    <IconButton onClick={deleteList}>
-                                        <DeleteIcon />
-                                    </IconButton>
-                                }
-                </div>
-                {
-                    (error)?<div className='d-flex justify-content-between border border-gray mb-2'>
-                        <Alert variant='filled' severity='error'>Error ocuured While Deleteing the list</Alert>
-                        </div>:<></>
-                }
-                </>
-            </Fade>
-    )
+    if (error){
+        return (
+            <div className='d-flex justify-content-between shadow-sm col-12 my-2'>
+                <Alert variant='filled' severity='error'>Error ocuured While Deleteing the list</Alert>
+            </div>
+        )
+    }else{
+
+        return (<Fade in={true}>
+                    <div className='d-flex justify-content-between flex-wrap rounded border shadow-sm my-2'>
+                        <div className='d-none d-md-flex d-lg-flex d-xl-flex bg-dark text-white col-1  justify-content-center align-items-center'>
+                            <FontAwesomeIcon icon={faList} size='lg' />
+                        </div>
+                        <div className='col-lg-5 col-md-5 col-xl-5 col-12 ff-mst my-auto p-3'>
+                            <Link to={'/todos/readtodolist/'+(props.todo_id || '')} className='text-decoration-none text-dark' >
+                                {(props.name.length > 25)?props.name.substring(0,25)+'...':props.name}
+                            </Link>
+                        </div>
+                        <div className='col-lg-4 col-md-4 col-xl-4 col-9 ff-mst my-auto p-3'>
+                            <span>
+                                {date.getDate()+'/'+date.getMonth()+'/'+date.getFullYear()+' '+date.getHours()+':'+((date.getMinutes() <= 9)?'0'+date.getMinutes():date.getMinutes())}
+                            </span>
+                        </div>
+                        
+                        {(progress)?<CircularProgress/>:
+                                        <div>
+                                            <IconButton  onClick={deleteList}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                        </div>
+                        }
+                    </div>
+                </Fade>
+        )
+    }
 }
 
 

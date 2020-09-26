@@ -5,21 +5,20 @@ import axios from 'axios'
 import {connect} from 'react-redux'
 import Alert from '@material-ui/lab/Alert'
 import PreLoader from '../UtilComponents/PreLoader'
-import Divider from '@material-ui/core/Divider'
 import {FontAwesomeIcon} from  '@fortawesome/react-fontawesome'
 import {faList, faChevronLeft} from '@fortawesome/free-solid-svg-icons'
 import IconButton from '@material-ui/core/IconButton'
-import AddIcon from '@material-ui/icons/Add'
 import DeleteIcon from '@material-ui/icons/Delete'
 import CancelIcon from '@material-ui/icons/Cancel'
 import {Link} from 'react-router-dom'
-import Searchbar from './Searchbar'
 import TodoItemEditor from './todos/TodoItemEditor'
 import Task from  './todos/Task'
 import Badge from '@material-ui/core/Badge'
 import CircularProgress from '../UtilComponents/CircularProgress'
 import utils from '../../utils'
 import AddButton from './AddButton'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
 
 
 
@@ -114,19 +113,27 @@ function TodoListPanel(props){
                      <div className='d-flex justify-content-center'>
                         <div className='col-12 my-2'>
                             <div className='my-1 d-flex justify-content-between align-items-center'>
-                                <div className='d-inline'>
+                                <div className='d-flex align-items-center'>
                                     <Link to='/todos' className='text-decoration-none text-dark mr-2' >
-                                        <FontAwesomeIcon icon ={faChevronLeft} />
+                                        <IconButton>
+                                            <ArrowBackIcon/>
+                                        </IconButton>
                                     </Link>
-                                    <Link to={'/todos/readtodolist/'+(props.todo_id || '')} className='my-auto text-decoration-none text-dark h6' onClick={()=>applyEffect(!effect)}>
-                                        <FontAwesomeIcon icon={faList}/>  {props.todoList.name}
+                                    <Link to={'/todos/readtodolist/'+(props.todo_id || '')} className='fxl text-decoration-none text-dark ff-mst' onClick={()=>applyEffect(!effect)}>
+                                        {props.todoList.name}
                                     </Link>
                                 </div>
                                 <div className='d-flex justify-content-center align-items-center' >
-                                    {(progress.flag && progress.button === 'all')?<CircularProgress/>:
-                                    <button className='mr-1 fm btn btn-danger' disabled={progress.flag} onClick={()=>deleteTasks('all')}>
-                                        Delete All Tasks
-                                    </button>}
+                                    {(progress.flag && progress.button === 'all')?
+                                        <CircularProgress/>:
+                                        <>
+                                        {props.todoList.items.length === 0 ? <></>:
+                                            <button className='mr-1 fm btn btn-danger' disabled={progress.flag} onClick={()=>deleteTasks('all')}>
+                                                Delete All Tasks
+                                            </button>
+                                        }
+                                        </>
+                                    }
                                    {(delarray.delete_array.length === 0)?<></>:
                                    <>
                                     {
@@ -154,7 +161,7 @@ function TodoListPanel(props){
                                             <>
                                                 {
                                                     utils.createColumns(props.todoList.items).map((column,index)=>{
-                                                       return (<div className='col-12 col-lg-3 col-md-3 col-xl-3 p-0' style={{minHeight:'auto'}} key={index}>
+                                                       return (<div className='col-12 col-lg-3 col-md-3 col-xl-3 p-2' style={{minHeight:'auto'}} key={index}>
                                                                 {
                                                                         column.map(task=>{
                                                                             return <Task 

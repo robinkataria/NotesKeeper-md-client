@@ -189,6 +189,12 @@ return (
                 :<></>
             }
         </form>
+        <p className='py-2 text-muted m-0 fm d-md-none d-lg-none d-xl-none'>
+            Powered by  
+            <a href='https://inquiryscuttle.web.app' className='text-decoration-none text-dark ml-2'>
+                <b>I</b>nquiry <b>S</b>cuttle
+            </a>
+        </p>
       </div>
     </Fade>
 )

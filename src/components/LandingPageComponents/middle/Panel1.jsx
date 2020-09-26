@@ -15,7 +15,7 @@ export default function Panel1(){
                         <span>Write in Markdown, </span>
                         <span>Read in Markup</span>
                     </p>
-                    <button className='btn btn-dark  rounded-0'>Create Notebook</button>
+                    <Link to='/login' className='btn btn-dark rounded-0'>Create Notebook</Link>
                 </div>
                 <div className='d-none d-sm-none d-md-block col-xl-8 col-lg-8 col-md-7 '>
                     <img className='img-fluid rounded shadow ' src='./images/landing-product.jpg' alt='Notebooks Section Image' />

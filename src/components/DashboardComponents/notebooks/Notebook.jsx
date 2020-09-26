@@ -49,7 +49,7 @@ return (<Fade in={true}>
                                 }
                                 <div className='d-flex justify-content-between align-items-center my-2'>
                                     <Link to={'/readnotebook/'+props.notebook_id} className='text-decoration-none m-0 fl text-white text-break'>
-                                        {(props.name.length > 12)?props.name.substring(0,12)+'...':props.name}
+                                        {(props.name.length > 20)?props.name.substring(0,20)+'...':props.name}
                                     </Link>
                                     {(progress)?<CircularProgress/>:
                                     <IconButton onClick={deleteNotebook} size='small' color='inherit'>

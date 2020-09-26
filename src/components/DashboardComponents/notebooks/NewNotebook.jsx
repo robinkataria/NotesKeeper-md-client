@@ -5,6 +5,8 @@ import LinearProgress from '../../UtilComponents/LinearProgress'
 import Alert from '@material-ui/lab/Alert'
 import {setNotebooksArray} from '../../../redux/notebooks/notebooks.actions'
 import {connect} from 'react-redux'
+import IconButton from '@material-ui/core/IconButton'
+import CancelIcon from '@material-ui/icons/Cancel'
 
 function NewNotebook(props){
 
@@ -60,21 +62,36 @@ function NewNotebook(props){
 if( props.open == true) {
 return(
     <Fade in={true}>
-        <div className=' sheild-panel d-flex justify-content-center align-items-center'>
-            <div className='col-12 col-md-6 col-lg-6 bg-white rounded py-2' >
-               <form onSubmit={submitForm} className = 'd-flex justify-content-between flex-column ' style={{height:'60vh'}}>
+        <div className='sheild-panel p-2 d-flex flex-column justify-content-center align-items-center'>
+               <form 
+                    onSubmit={submitForm} 
+                    className='col-12 col-md-8 col-lg-6 bg-white rounded d-flex flex-column p-4' 
+                    >
+                    <div className='d-flex justify-content-end p-0 text-muted'>
+                        <IconButton color='inherit' size='small' disabled={progress} onClick={()=>props.setopen(false)}>
+                            <CancelIcon />
+                        </IconButton>
+                    </div>
                    <div>
                         <div className='form-group my-2'>
                             {(progress)?<LinearProgress/>:<></>}
                         </div>
-                        <label className='h5 my-2'>Enter a Name for Your Notebook</label>
-                        <label className='my-1 fm'>Name needs to be different from other Notebooks</label>
+                        <p className='my-1 ff-mst bold'>Enter a Name for Your Notebook</p>
+                        <p className='my-1 fsm ff-mst text-muted'>Name needs to be different from other Notebooks</p>
                         <div className='form-group my-2'>
                             <input className='form-control' id='nbname' ref={notebookName} required />
                         </div>
                         <div className='form-group my-2'>
-                            <label className='fm my-auto'>Description <small>remaining characters {rem.rem}/200</small></label>
-                            <input className='form-control' id='nbdesc' onChange={checkCount} value={rem.val} ref={notebookDescription} />
+                            <p className='my-1 ff-mst'>Description </p>
+                            <p className='my-1 text-muted ff-mst fsm'>Remaining characters {rem.rem}/200</p>
+                            <textarea 
+                                className='form-control' 
+                                rows='7' 
+                                id='nbdesc' 
+                                onChange={checkCount} 
+                                value={rem.val} 
+                                style={{resize:'none'}}
+                                ref={notebookDescription} ></textarea>
                         </div>
                         <div className='form-group my-2'>
                             {(err.exist === 1)?<Alert severity='error'>{err.msg}</Alert>:<></>}
@@ -84,11 +101,9 @@ return(
                         </div>
                     </div>
                     <div className='d-flex justify-content-end my-2'>
-                        <button className='btn btn-outline-danger mr-2' disabled={progress} onClick={()=>props.setopen(false)}>Cancel</button>
-                        <button className='btn btn-outline-success' disabled={progress || err.exist === 1} type='submit'>Create</button>
+                        <button className='btn btn-primary shadow ' disabled={progress || err.exist === 1} type='submit'>Create</button>
                     </div>
                 </form>
-            </div>
         </div>
     </Fade>
 )

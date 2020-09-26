@@ -5,10 +5,11 @@ import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme) => ({
   fab: {
-    position: 'absolute',
+    position: 'fixed',
     bottom: theme.spacing(3),
     right: theme.spacing(3),
     backgroundColor:'#343a40',
+    zIndex:300,
     color:'white',
     '&:hover': {
         backgroundColor:'black',

@@ -37,9 +37,11 @@ const NotebooksDisplay = ({notebooksArray}) =>{
 const DisplayArea = ({loading,error,notebooksArray}) => {
     if (loading) return <LinearProgress />
     else if (error.exist) {
-        return <Alert severity='error' className='col-12 my-2' variant='filled'>{error.msg}</Alert>
+        return (<div className='col-12 p-2 my-2'>
+                    <Alert severity='error' className='col-12 my-2' variant='filled'>{error.msg}</Alert>
+                </div>)
     } else if (notebooksArray.length === 0){
-        return (<div className='col-12 p-0 my-2'>
+        return (<div className='col-12 p-2 my-2'>
                     <Alert severity='info' variant='filled'>No Notebook</Alert>
                 </div>)
     } else {
@@ -77,9 +79,9 @@ function Notebooks(props){
             <>
             <NewNotebook open={open} setopen={setopen}/>
             <AddButton setopen={setopen}/>
-            <div className='col-12 p-0 my-2'>
-                <div className='my-3'>
-                    <Link to='/' className='h3 my-auto text-decoration-none text-dark' onClick={()=>setreset(!reset)}>
+            <div className='col-12 my-2'>
+                <div className='p-2'>
+                    <Link to='/' className='h4 text-decoration-none text-dark ff-mst' onClick={()=>setreset(!reset)}>
                         <FontAwesomeIcon icon={faBookmark}/> Notebooks
                     </Link>
                 </div>

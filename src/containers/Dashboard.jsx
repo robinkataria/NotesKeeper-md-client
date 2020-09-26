@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 
  const Navbar = ({handleDrawerToggle,menuButton}) => {
       return (
-          <div className='d-flex p-2 px-4 align-items-center bg-white justify-content-between'>
+          <div className='col-12 p-2 d-flex align-items-center bg-white justify-content-between'>
                 <div className='text-dark' >   
                     <IconButton
                         color="inherit"
@@ -72,7 +72,6 @@ const useStyles = makeStyles((theme) => ({
                     <SearchbarRouter />
                     <ProfileMenu/>
                 </div>
-               
           </div>
       )
   }
@@ -89,10 +88,10 @@ function ResponsiveDrawer(props) {
 
   const SideDrawer = ({toggler}) => (
     <div className='sidebar' >
-        <div className='px-3 py-2'>
-            <Brand color='light'/>
+        <div className='p-3' onClick={toggler}>
+            <Brand color='light' />
         </div>
-        <div className='border-bottom border-white' />
+        <div className='horizontal-bar' />
         <SideBarRouter toggler={toggler}/>
     </div>
   );

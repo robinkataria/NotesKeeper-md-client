@@ -71,7 +71,8 @@ function ProfileMenu(props) {
         <MenuItem onClick={handleClose}>
           <FontAwesomeIcon icon={faChevronUp} />
         </MenuItem>
-        <MenuItem><b>Welcome {beautifyname(props.user.name)}</b></MenuItem>
+        <MenuItem><span className='ff-mst bold'>{beautifyname(props.user.name)}</span></MenuItem>
+        <MenuItem><span className='ff-mst fm text-muted'>{props.user.email}</span></MenuItem>
         <MenuItem >
                 {(progress)?
                 <div className='d-flex justify-content-center fm'><CircularProgress/></div>
